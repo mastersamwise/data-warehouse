@@ -1,1 +1,5 @@
 data-warehouse-web/node_modules/
+DataWarehouse/.vs/
+**/bin/**
+**/obj/**
+**/*.cache
