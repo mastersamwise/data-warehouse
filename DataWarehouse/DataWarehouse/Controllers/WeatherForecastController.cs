@@ -4,7 +4,7 @@ namespace DataWarehouse.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PokemonController : ControllerBase
+    public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
         {
@@ -13,7 +13,7 @@ namespace DataWarehouse.Controllers
 
         private readonly ILogger<PokemonController> _logger;
 
-        public PokemonController(ILogger<PokemonController> logger)
+        public WeatherForecastController(ILogger<PokemonController> logger)
         {
             _logger = logger;
         }

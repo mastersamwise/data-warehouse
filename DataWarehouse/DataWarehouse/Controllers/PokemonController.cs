@@ -1,33 +1,27 @@
+using DataWarehouse.Library.Classes.Pokemon;
+using DataWarehouse.Library.Managers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataWarehouse.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Pokemon")]
     public class PokemonController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<PokemonController> _logger;
+        private PokemonManager _pokemonManager = new PokemonManager();
 
         public PokemonController(ILogger<PokemonController> logger)
         {
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetPokemonEvents")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("GetPokemonEvents")]
+        public void GetPokemonEvents()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            Console.WriteLine($"Entering [Pokemon/GetPokemonEvents] endpoint");
+            _pokemonManager.GetPokemonEvents();
+            Console.WriteLine($"Leaving [Pokemon/GetPokemonEvents] endpoint");
         }
     }
 }
