@@ -20,7 +20,7 @@ namespace DataWarehouse.Library.Managers
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                string query = "SELECT * FROM pokemon_events;";
+                string query = "SELECT event_name FROM pokemon_events;";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 try
@@ -29,7 +29,7 @@ namespace DataWarehouse.Library.Managers
                     MySqlDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        string eventName = reader.GetString("eventName");
+                        string eventName = reader.GetString("event_name");
                         Console.WriteLine($"Event name: {eventName}");
                     }
                 }
