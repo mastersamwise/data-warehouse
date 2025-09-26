@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataWarehouse.Library.Classes.Common;
+using DataWarehouse.Library.Classes.Pokemon;
 using MySql.Data.MySqlClient;
 
 namespace DataWarehouse.Library.Managers
@@ -16,8 +17,9 @@ namespace DataWarehouse.Library.Managers
             
         }
 
-        public void GetPokemonEvents()
+        public List<PokemonEvent> GetPokemonEvents()
         {
+            List<PokemonEvent> events = new List<PokemonEvent>();
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 string query = "SELECT event_name FROM pokemon_events;";
@@ -31,6 +33,9 @@ namespace DataWarehouse.Library.Managers
                     {
                         string eventName = reader.GetString("event_name");
                         Console.WriteLine($"Event name: {eventName}");
+                        PokemonEvent tempEvent = new(eventName);
+
+                        events.Add(tempEvent);
                     }
                 }
                 catch (Exception ex)
@@ -38,6 +43,7 @@ namespace DataWarehouse.Library.Managers
                     Console.WriteLine($"[GetPokemonEvents()] \t Error: {ex.Message}");
                 }
 
+                return events;
             }
         }
         

@@ -1,0 +1,12 @@
+<h2>Pokemon Events</h2>
+<button (click)="loadEvents()">Load Events</button>
+
+<ul *ngIf="pokemonEvents.length > 0">
+  <li *ngFor="let event of pokemonEvents">
+    Event Name: {{ event.eventName }}
+  </li>
+</ul>
+
+<div *ngIf="pokemonEvents.length === 0">
+    Click the button to load events.
+</div>

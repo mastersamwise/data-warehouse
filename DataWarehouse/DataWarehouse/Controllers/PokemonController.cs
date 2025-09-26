@@ -17,11 +17,11 @@ namespace DataWarehouse.Controllers
         }
 
         [HttpGet("GetPokemonEvents")]
-        public void GetPokemonEvents()
+        public IActionResult GetPokemonEvents()
         {
-            Console.WriteLine($"Entering [Pokemon/GetPokemonEvents] endpoint");
-            _pokemonManager.GetPokemonEvents();
-            Console.WriteLine($"Leaving [Pokemon/GetPokemonEvents] endpoint");
+            List<PokemonEvent> result = _pokemonManager.GetPokemonEvents();
+
+            return Ok(result);
         }
     }
 }

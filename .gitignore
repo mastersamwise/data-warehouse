@@ -5,3 +5,4 @@ DataWarehouse/.vs/
 **/bin/**
 **/obj/**
 **/*.cache
+*.csproj.user
