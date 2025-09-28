@@ -10,15 +10,15 @@ namespace DataWarehouse.Library.Classes.Pokemon
     public class PokemonEvent
     {
 
-        public int EventID;
-        public bool IsEventActive;
-        public string EventName;
-        public string EventType;
-        public DateTime StartDate;
-        public DateTime EndDate;
-        public string SerialCode;
-        public string Description;
-        public AuditInfo AuditInfo;
+        public int EventID { get; set; }
+        public bool IsEventActive { get; set; }
+        public string EventName { get; set; }
+        public string EventType { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string SerialCode { get; set; }
+        public string Description { get; set; }
+        public AuditInfo AuditInfo { get; set; }
 
         /// <summary>
         /// 

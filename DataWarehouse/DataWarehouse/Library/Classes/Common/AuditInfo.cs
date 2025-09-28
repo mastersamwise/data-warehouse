@@ -7,11 +7,11 @@ namespace DataWarehouse.Library.Classes.Common
 {
     public class AuditInfo
     {
-        public DateTime createdDate;
-        public string createdBy;
-        public DateTime updatedDate;
-        public string updatedBy;
-        public bool isDeleted;
+        public DateTime createdDate { get; set; }
+        public string createdBy { get; set; }
+        public DateTime updatedDate { get; set; }
+        public string updatedBy { get; set; }
+        public bool isDeleted { get; set; }
 
         /// <summary>
         /// Default Constructor

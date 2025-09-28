@@ -36,6 +36,7 @@ namespace DataWarehouse.Library.Managers
                                         updated_by,
                                         is_deleted
                                  FROM pokemon_events;";
+                //string query = @"SELECT event_name FROM pokemon_events;";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 try
@@ -47,20 +48,26 @@ namespace DataWarehouse.Library.Managers
                         int eventID = reader.GetInt32("event_id");
                         bool isEventActive = bool.Parse(reader.GetString("is_event_active"));
                         string eventName = reader.GetString("event_name");
-                        string eventType = reader.GetString("event_type");
-                        DateTime startDate = reader.GetDateTime("start_date");
-                        DateTime endDate = reader.GetDateTime("end_date");
-                        string serialCode = reader.IsDBNull(reader.GetOrdinal("serial_code")) ? string.Empty : reader.GetString("serial_code");
-                        string description = reader.GetString("description") ?? "";
-                        DateTime createdDate = reader.GetDateTime("created_date");
-                        string createdBy = reader.GetString("created_by") ?? "";
-                        DateTime updatedDate = reader.GetDateTime("updated_date");
-                        string updatedBy = reader.IsDBNull(reader.GetOrdinal("updated_by")) ? string.Empty : reader.GetString("updated_by");
-                        bool isDeleted = reader.GetBoolean("is_deleted");
+                        // string eventType = reader.GetString("event_type");
+                        // DateTime startDate = reader.GetDateTime("start_date");
+                        // DateTime endDate = reader.GetDateTime("end_date");
+                        // string serialCode = reader.IsDBNull(reader.GetOrdinal("serial_code")) ? string.Empty : reader.GetString("serial_code");
+                        // string description = reader.GetString("description") ?? "";
+                        // DateTime createdDate = reader.GetDateTime("created_date");
+                        // string createdBy = reader.GetString("created_by") ?? "";
+                        // DateTime updatedDate = reader.GetDateTime("updated_date");
+                        // string updatedBy = reader.IsDBNull(reader.GetOrdinal("updated_by")) ? string.Empty : reader.GetString("updated_by");
+                        // bool isDeleted = reader.GetBoolean("is_deleted");
 
-                        AuditInfo tempAuditInfo = new(createdDate, createdBy, updatedDate, updatedBy, isDeleted);
-                        PokemonEvent tempEvent = new(eventID, isEventActive, eventName, eventType, startDate, endDate, serialCode, description, tempAuditInfo);
+                        // AuditInfo tempAuditInfo = new(createdDate, createdBy, updatedDate, updatedBy, isDeleted);
+                        // PokemonEvent tempEvent = new(eventID, isEventActive, eventName, eventType, startDate, endDate, serialCode, description, tempAuditInfo);
 
+                        PokemonEvent tempEvent = new()
+                        {
+                            EventID = eventID,
+                            IsEventActive = isEventActive,
+                            EventName = eventName
+                        };
                         events.Add(tempEvent);
                     }
                 }
