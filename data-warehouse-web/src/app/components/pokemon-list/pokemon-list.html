@@ -3,7 +3,11 @@
 
 <ul *ngIf="pokemonEvents.length > 0">
   <li *ngFor="let event of pokemonEvents">
+    Event ID: {{ event.eventID }}
     Event Name: {{ event.eventName }}
+    Start Date: {{ event.startDate }}
+    End Date: {{ event.endDate }}
+    Description: {{ event.description }}
   </li>
 </ul>
 

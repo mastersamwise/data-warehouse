@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataWarehouse.Library.Classes.Common;
 using DataWarehouse.Library.Classes.Pokemon;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 
 namespace DataWarehouse.Library.Managers
 {
@@ -14,7 +14,7 @@ namespace DataWarehouse.Library.Managers
 
         public PokemonManager()
         {
-            
+
         }
 
         public List<PokemonEvent> GetPokemonEvents()
@@ -103,6 +103,6 @@ namespace DataWarehouse.Library.Managers
                 return events;
             }
         }
-        
+
     }
 }
