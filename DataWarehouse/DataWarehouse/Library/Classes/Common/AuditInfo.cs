@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using System.Text.Json.Serialization;
+
 namespace DataWarehouse.Library.Classes.Common
 {
     public class AuditInfo
     {
         public DateTime createdDate { get; set; }
-        public string createdBy { get; set; }
+        public string createdBy { get; set; } = string.Empty;
         public DateTime updatedDate { get; set; }
-        public string updatedBy { get; set; }
+        public string updatedBy { get; set; } = string.Empty;
         public bool isDeleted { get; set; }
 
         /// <summary>

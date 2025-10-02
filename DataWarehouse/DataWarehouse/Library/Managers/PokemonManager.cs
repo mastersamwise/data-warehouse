@@ -36,37 +36,60 @@ namespace DataWarehouse.Library.Managers
                                         updated_by,
                                         is_deleted
                                  FROM pokemon_events;";
-                //string query = @"SELECT event_name FROM pokemon_events;";
+                // string query = @"SELECT event_name FROM pokemon_events;";
+                // string query = @"SELECT event_id, 
+                //                         event_name,
+                //                         event_type
+                //                  FROM pokemon_events;";
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 try
                 {
                     connection.Open();
                     MySqlDataReader reader = command.ExecuteReader();
+                    int eventIDOrdinal = reader.GetOrdinal("event_id");
+                    int isEventActiveOrdinal = reader.GetOrdinal("is_event_active");
+                    int eventNameOrdinal = reader.GetOrdinal("event_name");
+                    int eventTypeOrdinal = reader.GetOrdinal("event_type");
+                    int startDateOrdinal = reader.GetOrdinal("start_date");
+                    int endDateOrdinal = reader.GetOrdinal("end_date");
+                    int serialCodeOrdinal = reader.GetOrdinal("serial_code");
+                    int descriptionOrdinal = reader.GetOrdinal("description");
+                    int createdDateOrdinal = reader.GetOrdinal("created_date");
+                    int createdByOrdinal = reader.GetOrdinal("created_by");
+                    int updatedDateOrdinal = reader.GetOrdinal("updated_date");
+                    int updatedByOrdinal = reader.GetOrdinal("updated_by");
+                    int isDeletedOrdinal = reader.GetOrdinal("is_deleted");
+
                     while (reader.Read())
                     {
-                        int eventID = reader.GetInt32("event_id");
-                        bool isEventActive = bool.Parse(reader.GetString("is_event_active"));
-                        string eventName = reader.GetString("event_name");
-                        // string eventType = reader.GetString("event_type");
-                        // DateTime startDate = reader.GetDateTime("start_date");
-                        // DateTime endDate = reader.GetDateTime("end_date");
-                        // string serialCode = reader.IsDBNull(reader.GetOrdinal("serial_code")) ? string.Empty : reader.GetString("serial_code");
-                        // string description = reader.GetString("description") ?? "";
-                        // DateTime createdDate = reader.GetDateTime("created_date");
-                        // string createdBy = reader.GetString("created_by") ?? "";
-                        // DateTime updatedDate = reader.GetDateTime("updated_date");
-                        // string updatedBy = reader.IsDBNull(reader.GetOrdinal("updated_by")) ? string.Empty : reader.GetString("updated_by");
-                        // bool isDeleted = reader.GetBoolean("is_deleted");
+                        int eventID = reader.GetInt32(eventIDOrdinal);
+                        bool isEventActive = reader.GetBoolean(isEventActiveOrdinal);
+                        string eventName = reader.GetString(eventNameOrdinal);
+                        string eventType = reader.GetString(eventTypeOrdinal);
+                        DateTime startDate = reader.GetDateTime(startDateOrdinal);
+                        DateTime endDate = reader.GetDateTime(endDateOrdinal);
+                        string serialCode = reader.IsDBNull(serialCodeOrdinal) ? string.Empty : reader.GetString(serialCodeOrdinal);
+                        string description = reader.IsDBNull(descriptionOrdinal) ? string.Empty : reader.GetString(descriptionOrdinal);
+                        DateTime createdDate = reader.GetDateTime(createdDateOrdinal);
+                        string createdBy = reader.IsDBNull(createdByOrdinal) ? string.Empty : reader.GetString(createdByOrdinal);
+                        DateTime updatedDate = reader.GetDateTime(updatedDateOrdinal);
+                        string updatedBy = reader.IsDBNull(updatedByOrdinal) ? string.Empty : reader.GetString(updatedByOrdinal);
+                        bool isDeleted = reader.GetBoolean(isDeletedOrdinal);
 
-                        // AuditInfo tempAuditInfo = new(createdDate, createdBy, updatedDate, updatedBy, isDeleted);
-                        // PokemonEvent tempEvent = new(eventID, isEventActive, eventName, eventType, startDate, endDate, serialCode, description, tempAuditInfo);
+                        // PokemonEvent tempEvent = new(eventID, isEventActive, eventName, eventType, startDate, endDate, serialCode, description, createdDate, createdBy, updatedDate, updatedBy, isDeleted);
 
                         PokemonEvent tempEvent = new()
                         {
                             EventID = eventID,
                             IsEventActive = isEventActive,
-                            EventName = eventName
+                            EventName = eventName,
+                            EventType = eventType,
+                            StartDate = startDate,
+                            EndDate = endDate,
+                            SerialCode = serialCode,
+                            Description = description,
+                            AuditInfo = new AuditInfo(createdDate, createdBy, updatedDate, updatedBy, isDeleted)
                         };
                         events.Add(tempEvent);
                     }

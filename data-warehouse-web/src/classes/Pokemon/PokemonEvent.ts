@@ -1,7 +1,7 @@
 import { AuditInfo } from "../Common/AuditInfo";
 
 export class PokemonEvent {
-    
+
     public eventID: number;
     public isEventActive: boolean;
     public eventName: string;
@@ -12,15 +12,19 @@ export class PokemonEvent {
     public description: string;
     public auditInfo: AuditInfo;
 
-    constructor(inEventID: number, 
-                inIsEventActive: boolean, 
-                inEventName: string, 
+    constructor(inEventID: number,
+                inIsEventActive: boolean,
+                inEventName: string,
                 inEventType: string,
-                inStartDate: Date, 
-                inEndDate: Date, 
-                inSerialCode: string, 
-                inDescription: string, 
-                inAuditInfo: AuditInfo) {
+                inStartDate: Date,
+                inEndDate: Date,
+                inSerialCode: string,
+                inDescription: string,
+                inCreatedDate: Date,
+                inCreatedBy: string,
+                inUpdatedDate: Date,
+                inUpdatedBy: string,
+                inIsDeleted: boolean) {
         this.eventID = inEventID;
         this.isEventActive = inIsEventActive;
         this.eventName = inEventName;
@@ -29,6 +33,6 @@ export class PokemonEvent {
         this.endDate = inEndDate;
         this.serialCode = inSerialCode;
         this.description = inDescription;
-        this.auditInfo = new AuditInfo(inAuditInfo.createdDate, inAuditInfo.createdBy, inAuditInfo.updatedDate, inAuditInfo.updatedBy, inAuditInfo.isDeleted);
+        this.auditInfo = new AuditInfo(inCreatedDate, inCreatedBy, inUpdatedDate, inUpdatedBy, inIsDeleted);
     }
 }

@@ -1,7 +1,7 @@
 CREATE TABLE pokemon_events 
 (
     event_id            INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    is_event_active     BIT             NOT NULL DEFAULT 0,
+    is_event_active     BOOLEAN         NOT NULL DEFAULT 0,
     event_name          VARCHAR(100)    NOT NULL,
     event_type          VARCHAR(100)    NOT NULL,
     start_date          DATE            NOT NULL,

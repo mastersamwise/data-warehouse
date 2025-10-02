@@ -16,8 +16,8 @@ namespace DataWarehouse.Library.Classes.Pokemon
         public string EventType { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public string SerialCode { get; set; }
-        public string Description { get; set; }
+        public string SerialCode { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         public AuditInfo AuditInfo { get; set; }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace DataWarehouse.Library.Classes.Pokemon
         /// <param name="inCopy"></param>
         public PokemonEvent(PokemonEvent inCopy)
             : this(inCopy.EventID, inCopy.IsEventActive, inCopy.EventName, inCopy.EventType,
-                 inCopy.StartDate, inCopy.EndDate, inCopy.SerialCode, inCopy.Description, inCopy.AuditInfo)
+                    inCopy.StartDate, inCopy.EndDate, inCopy.SerialCode, inCopy.Description, inCopy.AuditInfo)
         {
             // intentionally left blank
         }
