@@ -12,7 +12,7 @@ CREATE TABLE pokemon_events
     created_by          VARCHAR(50)     NULL,
     updated_date        TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
     updated_by          VARCHAR(50)     NULL,
-    is_deleted          BOOLEAN         DEFAULT TRUE
+    is_deleted          BOOLEAN         DEFAULT FALSE
 );
 
 ALTER TABLE pokemon_events ADD CONSTRAINT C_U_EVENT UNIQUE (event_name);
