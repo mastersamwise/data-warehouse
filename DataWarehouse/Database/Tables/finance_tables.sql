@@ -8,7 +8,7 @@ CREATE TABLE finance_accounts
 (
     account_id              INT             NOT NULL AUTO_INCREMENT PRIMARY KEY,
     account_name            VARCHAR(100)    NOT NULL
-)
+);
 
 CREATE TABLE finance_confirmation_numbers
 (
@@ -26,4 +26,4 @@ CREATE TABLE finance_confirmation_numbers
     updated_date            DATE            NULL,
     updated_by              VARCHAR(200)    NULL,
     is_deleted              BIT             NOT NULL    DEFAULT 0
-)
+);
