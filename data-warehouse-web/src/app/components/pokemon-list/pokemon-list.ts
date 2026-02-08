@@ -30,6 +30,7 @@
 // }
 
 
+// https://primeng.org/table#filter-basic
 import { Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { PokemonService } from '../../services/pokemon.service';
@@ -72,5 +73,9 @@ export class PokemonList
             { field: 'endDate', header: 'End Date' },
             { field: 'description', header: 'Description' }
         ];
+    }
+
+    clearTable(pokemonEvents: PokemonEvent[]) {
+
     }
 }

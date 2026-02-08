@@ -1,22 +1,14 @@
 <h2>Pokemon Events</h2>
 <button (click)="loadEvents()">Load Events</button>
 
-<!-- <ul *ngIf="pokemonEvents.length > 0">
-  <li *ngFor="let event of pokemonEvents">
-    Event ID: {{ event.eventID }}
-    Event Name: {{ event.eventName }}
-    Start Date: {{ event.startDate }}
-    End Date: {{ event.endDate }}
-    Description: {{ event.description }}
-  </li>
-</ul>
-
 <div *ngIf="pokemonEvents.length === 0">
     Click the button to load events.
-</div> -->
+</div>
+
+<!--- https://primeng.org/table#filter-basic -->
 
 <div class="card">
-  <p-table [columns]="cols" [value]="pokemonEvents" [tableStyle]="{ 'min-width': '50rem' }">
+  <p-table [columns]="cols" [value]="pokemonEvents" stripedRows [tableStyle]="{ 'min-width': '75rem' }">
       <ng-template #header let-columns>
           <tr>
               @for (col of columns; track col) {
