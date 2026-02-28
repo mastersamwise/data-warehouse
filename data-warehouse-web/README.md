@@ -1,5 +1,16 @@
 # DataWarehouseWeb
 
+## Nik
+
+1. `cd data-warehouse-web`
+2. `ng serve`
+3. Open http://localhost:4200/
+3. `cd DataWarehouse/DataWarehouse`
+4. `dotnet build && dotnet run`
+
+
+
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.2.
 
 ## Development server
