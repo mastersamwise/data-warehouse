@@ -23,6 +23,7 @@ interface Column {
     field: string;
     header: string;
     type: string;
+    width: string;
     isEditable: boolean;
 }
 
@@ -56,6 +57,10 @@ export class PokemonList
     public clonedPokemonEvents!: PokemonEvent[];
     cols!: Column[];
 
+    trackByEventID(index: number, item: PokemonEvent) {
+      return item.eventID;
+    }
+
     ngOnInit() {
       this.loadEvents();
     }
@@ -64,7 +69,7 @@ export class PokemonList
         this.pokemonService.getPokemonEvents().subscribe({
           next: (data: PokemonEvent[]) => {
             this.pokemonEvents = data;
-            this.clonedPokemonEvents = data;
+            this.clonedPokemonEvents = [... data];
             console.log('Events loaded successfully: ', this.pokemonEvents);
           },
           error: (error: any) => {
@@ -73,11 +78,11 @@ export class PokemonList
         );
 
         this.cols = [
-            { field: 'eventID', header: 'Event ID', type: 'numeric', isEditable: false},
-            { field: 'eventName', header: 'Event Name', type: 'text', isEditable: true },
-            { field: 'startDate', header: 'Start Date', type: 'date', isEditable: true },
-            { field: 'endDate', header: 'End Date', type: 'date', isEditable: true },
-            { field: 'description', header: 'Description', type: 'text', isEditable: true }
+            { field: 'eventID', header: 'Event ID', type: 'numeric', width: '5%', isEditable: false},
+            { field: 'eventName', header: 'Event Name', type: 'text', width: '15%', isEditable: true },
+            { field: 'startDate', header: 'Start Date', type: 'date', width: '10%', isEditable: true },
+            { field: 'endDate', header: 'End Date', type: 'date', width: '10%', isEditable: true },
+            { field: 'description', header: 'Description', type: 'text', width: '25%', isEditable: true }
         ];
     }
 
@@ -92,7 +97,7 @@ export class PokemonList
     onRowEditSave(pokemonEvent: PokemonEvent) {
         //if (pokemonEvent.price > 0) {
             delete this.clonedPokemonEvents[pokemonEvent.eventID];
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pokemon Event is updated' });
         //} else {
             // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
         //}

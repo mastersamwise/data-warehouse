@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/mastersamwise/data-warehouse/issues"
   },
-  "homepage": "https://github.com/mastersamwise/data-warehouse#readme"
+  "homepage": "https://github.com/mastersamwise/data-warehouse#readme",
+  "dependencies": {
+    "primeicons": "^7.0.0"
+  }
 }
