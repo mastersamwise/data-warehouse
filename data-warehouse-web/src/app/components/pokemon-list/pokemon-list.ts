@@ -19,6 +19,13 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { SelectItem, MessageService } from 'primeng/api';
 
+import { Dialog } from 'primeng/dialog';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { TextareaModule } from 'primeng/textarea';
+import { Tag } from 'primeng/tag';
+import { InputNumber } from 'primeng/inputnumber';
+
 interface Column {
     field: string;
     header: string;
@@ -32,16 +39,22 @@ interface Column {
   templateUrl: './pokemon-list.html',
   imports: [
     ButtonModule,
+    ConfirmDialog,
+    Dialog,
     FormsModule,
     IconFieldModule,
     InputIconModule,
+    InputNumber,
     InputTextModule,
     MultiSelectModule,
     RippleModule,
     SelectModule,
     TableModule,
+    Tag,
     TagModule,
+    TextareaModule,
     ToastModule,
+    ToolbarModule
   ],
   providers: [
     MessageService,
