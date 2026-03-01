@@ -28,25 +28,26 @@ interface Column {
 }
 
 @Component({
-    selector: 'app-pokemon-list',
-    templateUrl: './pokemon-list.html',
-    imports: [
-      ButtonModule,
-      FormsModule,
-      IconFieldModule,
-      InputIconModule,
-      InputTextModule,
-      MultiSelectModule,
-      RippleModule,
-      SelectModule,
-      TableModule,
-      TagModule,
-      ToastModule,
-    ],
-    providers: [
-      MessageService,
-      PokemonService
-    ]
+  selector: 'app-pokemon-list',
+  templateUrl: './pokemon-list.html',
+  imports: [
+    ButtonModule,
+    FormsModule,
+    IconFieldModule,
+    InputIconModule,
+    InputTextModule,
+    MultiSelectModule,
+    RippleModule,
+    SelectModule,
+    TableModule,
+    TagModule,
+    ToastModule,
+  ],
+  providers: [
+    MessageService,
+    PokemonService
+  ],
+  styleUrl: './pokemon-list.css'
 })
 export class PokemonList
  {
@@ -56,10 +57,6 @@ export class PokemonList
     public pokemonEvents!: PokemonEvent[];
     public clonedPokemonEvents!: PokemonEvent[];
     cols!: Column[];
-
-    trackByEventID(index: number, item: PokemonEvent) {
-      return item.eventID;
-    }
 
     ngOnInit() {
       this.loadEvents();
