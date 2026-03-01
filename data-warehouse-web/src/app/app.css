@@ -1,12 +1,17 @@
+.page-content {  
+  border: solid blue;
+  margin-left: 15%;
+  margin-right: 15%;
+  width: 85%;
+}
+
 .nav-bar {
+  border: solid purple;
   padding-left: 5%;
   align-items: left;
 }
 
-.page-content {
-  padding-left: 10%;
-}
-
 .table-content {
-  width: 90%;
+  border: solid black;
+  width: 100%;
 }

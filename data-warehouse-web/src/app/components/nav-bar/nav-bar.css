@@ -2,8 +2,8 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  height: 100%; /* Full height */
-  width: 15%; /* Fixed width */
+  height: 100%; 
+  width: 15%; 
   position: fixed; /* Fixed position */
   top: 0;
   left: 0;
