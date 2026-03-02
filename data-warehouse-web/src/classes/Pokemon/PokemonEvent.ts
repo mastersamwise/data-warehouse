@@ -10,6 +10,7 @@ export class PokemonEvent {
     public endDate: Date;
     public serialCode: string;
     public description: string;
+    public isNew: boolean;
     public auditInfo: AuditInfo;
 
     constructor(inEventID: number,
@@ -20,6 +21,7 @@ export class PokemonEvent {
                 inEndDate: Date,
                 inSerialCode: string,
                 inDescription: string,
+                inIsNew: boolean,
                 inCreatedDate: Date,
                 inCreatedBy: string,
                 inUpdatedDate: Date,
@@ -33,6 +35,7 @@ export class PokemonEvent {
         this.endDate = inEndDate;
         this.serialCode = inSerialCode;
         this.description = inDescription;
+        this.isNew = inIsNew;
         this.auditInfo = new AuditInfo(inCreatedDate, inCreatedBy, inUpdatedDate, inUpdatedBy, inIsDeleted);
     }
 }

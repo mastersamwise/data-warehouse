@@ -9,16 +9,7 @@
 
 <!--- https://primeng.org/table#filter-basic
       https://v20.primeng.org/table -->
-<p-toolbar class="mb-6">
-    <ng-template #start>
-        <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
-        <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
-    </ng-template>
-    <ng-template #end>
-        <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
-        <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV($event)" />
-    </ng-template>
-</p-toolbar>
+
 <div class="card pokemon-table">
   <p-table
     #dt2
@@ -32,20 +23,25 @@
     [rowsPerPageOptions]="[25, 50, 100]"
     [scrollable]="true"
     scrollDirection="horizontal"
+    sortMode="multiple"
     [rowHover]="true"
   >
     <ng-template pTemplate="header" let-columns>
+        <button pButton label="Add Pokemon Event" icon="pi pi-plus" (click)="addRow()"></button>
         <tr>
             @for (col of columns; track col) {
-                <th width="col.width">
-                    {{ col.header }}
+                <th [width]="col.width" [pSortableColumn]="col.field">
+                     <div class="flex items-center gap-2">
+                        {{ col.header }}
+                        <p-sortIcon field="col.field" />
+                    </div>
                 </th>
             }
-            <th>Edit</th>
+            <th style="width:150px">Edit</th>
         </tr>
         <tr>
             @for (col of columns; track col) {
-                <th width="col.width">
+                <th [width]="col.width">
                     <p-columnFilter [type]="col.type" [field]="col.field" placeholder="Type to search" ariaLabel="Filter Name" filterOn="input"></p-columnFilter>
                 </th>
             }
@@ -55,7 +51,7 @@
     <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing">
         <tr [pEditableRow]="rowData">
           @for (col of columns; track col) {
-            <td width="col.width">
+            <td [width]="col.width">
               @if (col.isEditable) {
                 <p-cellEditor>
                   <ng-template pTemplate="input">
@@ -71,7 +67,7 @@
               }
             </td>
           }
-          <td>
+          <td style="width:150px">
             <div class="flex items-center justify-center gap-2">
                 @if (!editing) { <button pButton pRipple type="button" icon="pi pi-pencil" pInitEditableRow (click)="onRowEditInit(rowData)" text rounded severity="secondary"></button> }
                 @if (editing) { <button pButton pRipple type="button" icon="pi pi-check" pSaveEditableRow (click)="onRowEditSave(rowData)" text rounded severity="secondary"></button> }
