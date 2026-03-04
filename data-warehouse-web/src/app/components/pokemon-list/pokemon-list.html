@@ -20,12 +20,15 @@
     </ng-template>
 </p-toolbar> -->
 <div class="card pokemon-table">
+  <button pButton label="Add Pokemon Event" icon="pi pi-plus" (click)="addRow()"></button>
   <p-table
     #dt2
+    class="prime-fixed-table"
     dataKey="eventID"
     editMode="row"
     [columns]="cols"
     [value]="pokemonEvents"
+    [tableStyle]="{'table-layout': 'fixed', 'width': '100%'}"
     stripedRows
     [paginator]="true"
     [rows]="25"
@@ -36,35 +39,43 @@
     [rowHover]="true"
   >
     <ng-template pTemplate="header" let-columns>
-        <button pButton label="Add Pokemon Event" icon="pi pi-plus" (click)="addRow()"></button>
         <tr>
             @for (col of columns; track col) {
-                <th [width]="col.width" [pSortableColumn]="col.field">
+                <th [style.width]="col.width" [style.minWidth]="col.width" [style.maxWidth]="col.width" [pSortableColumn]="col.field">
                      <div class="flex items-center gap-2">
                         {{ col.header }}
-                        <p-sortIcon field="col.field" />
+                        <p-sortIcon [field]="col.field" />
                     </div>
                 </th>
             }
-            <th style="width:150px">Edit</th>
+            <th [style.width]="EDIT_WIDTH" [style.min-width]="EDIT_WIDTH" [style.maxwidth]="EDIT_WIDTH">Edit</th>
         </tr>
         <tr>
             @for (col of columns; track col) {
-                <th [width]="col.width">
-                    <p-columnFilter [type]="col.type" [field]="col.field" placeholder="Type to search" ariaLabel="Filter Name" filterOn="input"></p-columnFilter>
+                <th [style.width]="col.width" [style.minWidth]="col.width" [style.maxWidth]="col.width">
+                    <p-columnFilter
+                      [type]="col.type"
+                      [field]="col.field"
+                      filterOn="input">
+                    </p-columnFilter>
                 </th>
             }
-            <th>Edit2</th>
+            <th [style.width]="EDIT_WIDTH" [style.min-width]="EDIT_WIDTH" [style.maxwidth]="EDIT_WIDTH"></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing">
         <tr [pEditableRow]="rowData">
           @for (col of columns; track col) {
-            <td [width]="col.width">
+            <td [style.width]="col.width" [style.minWidth]="col.width" [style.maxWidth]="col.width">
               @if (col.isEditable) {
                 <p-cellEditor>
                   <ng-template pTemplate="input">
-                      <input pInputText [type]="col.type" [(ngModel)]="rowData[col.field]" />
+                      <input
+                        pInputText
+                        class="w-full"
+                        [type]="col.type"
+                        [(ngModel)]="rowData[col.field]"
+                      />
                   </ng-template>
                   <ng-template pTemplate="output">
                       {{ rowData[col.field] }}
@@ -76,7 +87,7 @@
               }
             </td>
           }
-          <td style="width:150px">
+          <td [style.width]="EDIT_WIDTH" [style.min-width]="EDIT_WIDTH" [style.maxwidth]="EDIT_WIDTH">
             <div class="flex items-center justify-center gap-2">
                 @if (!editing) { <button pButton pRipple type="button" icon="pi pi-pencil" pInitEditableRow (click)="onRowEditInit(rowData)" text rounded severity="secondary"></button> }
                 @if (editing) { <button pButton pRipple type="button" icon="pi pi-check" pSaveEditableRow (click)="onRowEditSave(rowData)" text rounded severity="secondary"></button> }

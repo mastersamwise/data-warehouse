@@ -73,6 +73,8 @@ export class PokemonList
     cols!: Column[];
     editingRowKeys: { [key: string]: boolean } = {};
 
+    public EDIT_WIDTH: string = '50px';
+
     ngOnInit() {
       this.loadEvents();
     }
@@ -90,11 +92,11 @@ export class PokemonList
         );
 
         this.cols = [
-            { field: 'eventID', header: 'Event ID', type: 'numeric', width: '25px', isEditable: false},
-            { field: 'eventName', header: 'Event Name', type: 'text', width: '50px', isEditable: true },
-            { field: 'startDate', header: 'Start Date', type: 'date', width: '50px', isEditable: true },
-            { field: 'endDate', header: 'End Date', type: 'date', width: '50px', isEditable: true },
-            { field: 'description', header: 'Description', type: 'text', width: '75px', isEditable: true }
+            { field: 'eventID', header: 'Event ID', type: 'numeric', width: '75px', isEditable: false},
+            { field: 'eventName', header: 'Event Name', type: 'text', width: '200px', isEditable: true },
+            { field: 'startDate', header: 'Start Date', type: 'date', width: '115px', isEditable: true },
+            { field: 'endDate', header: 'End Date', type: 'date', width: '115px', isEditable: true },
+            { field: 'description', header: 'Description', type: 'text', width: '150px', isEditable: true }
         ];
     }
 

@@ -12,3 +12,34 @@
 .table-content {
   width: 100%;
 }
+
+/* **************************************************** */
+/* PrimeNG inputs behave inside fixed scrollable tables */
+.prime-fixed-table {
+
+  /* Text inputs */
+  .p-inputtext {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* InputNumber wrapper */
+  .p-inputnumber {
+    width: 100%;
+  }
+
+  .p-inputnumber .p-inputtext {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Column filter wrapper */
+  .p-column-filter {
+    width: 100%;
+  }
+
+  /* Cell editor wrapper */
+  .p-cell-editor-input {
+    width: 100%;
+  }
+}

@@ -1,2 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
+
+
+/* **************************************************** */
+/* PrimeNG inputs behave inside fixed scrollable tables */
+.prime-fixed-table {
+
+  /* Text inputs */
+  .p-inputtext {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* InputNumber wrapper */
+  .p-inputnumber {
+    width: 100%;
+  }
+
+  .p-inputnumber .p-inputtext {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Column filter wrapper */
+  .p-column-filter {
+    width: 100%;
+  }
+
+  /* Cell editor wrapper */
+  .p-cell-editor-input {
+    width: 100%;
+  }
+}
