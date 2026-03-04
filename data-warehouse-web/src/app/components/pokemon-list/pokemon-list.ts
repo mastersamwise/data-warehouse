@@ -35,6 +35,16 @@ interface Column {
     isEditable: boolean;
 }
 
+const pokemonColumns = [
+  { field: 'eventID', header: 'Event ID', type: 'numeric', width: '75px', isEditable: false},
+  { field: 'eventName', header: 'Event Name', type: 'text', width: '150px', isEditable: true },
+  { field: 'eventType', header: 'Event Type', type: 'text', width: '150px', isEditable: true },
+  { field: 'startDate', header: 'Start Date', type: 'date', width: '115px', isEditable: true },
+  { field: 'endDate', header: 'End Date', type: 'date', width: '115px', isEditable: true },
+  { field: 'serialCode', header: 'Code', type: 'text', width: '150px', isEditable: true },
+  { field: 'description', header: 'Description', type: 'text', width: '150px', isEditable: true }
+];
+
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.html',
@@ -91,13 +101,7 @@ export class PokemonList
           }}
         );
 
-        this.cols = [
-            { field: 'eventID', header: 'Event ID', type: 'numeric', width: '75px', isEditable: false},
-            { field: 'eventName', header: 'Event Name', type: 'text', width: '200px', isEditable: true },
-            { field: 'startDate', header: 'Start Date', type: 'date', width: '115px', isEditable: true },
-            { field: 'endDate', header: 'End Date', type: 'date', width: '115px', isEditable: true },
-            { field: 'description', header: 'Description', type: 'text', width: '150px', isEditable: true }
-        ];
+        this.cols = [... pokemonColumns];
     }
 
     clearTable(pokemonEvents: PokemonEvent[]) {
