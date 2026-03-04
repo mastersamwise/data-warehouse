@@ -32,20 +32,25 @@
     [rowsPerPageOptions]="[25, 50, 100]"
     [scrollable]="true"
     scrollDirection="horizontal"
+    sortMode="multiple"
     [rowHover]="true"
   >
     <ng-template pTemplate="header" let-columns>
+        <button pButton label="Add Pokemon Event" icon="pi pi-plus" (click)="addRow()"></button>
         <tr>
             @for (col of columns; track col) {
-                <th width="col.width">
-                    {{ col.header }}
+                <th [width]="col.width" [pSortableColumn]="col.field">
+                     <div class="flex items-center gap-2">
+                        {{ col.header }}
+                        <p-sortIcon field="col.field" />
+                    </div>
                 </th>
             }
-            <th>Edit</th>
+            <th style="width:150px">Edit</th>
         </tr>
         <tr>
             @for (col of columns; track col) {
-                <th width="col.width">
+                <th [width]="col.width">
                     <p-columnFilter [type]="col.type" [field]="col.field" placeholder="Type to search" ariaLabel="Filter Name" filterOn="input"></p-columnFilter>
                 </th>
             }
@@ -55,7 +60,7 @@
     <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing">
         <tr [pEditableRow]="rowData">
           @for (col of columns; track col) {
-            <td width="col.width">
+            <td [width]="col.width">
               @if (col.isEditable) {
                 <p-cellEditor>
                   <ng-template pTemplate="input">
@@ -71,7 +76,7 @@
               }
             </td>
           }
-          <td>
+          <td style="width:150px">
             <div class="flex items-center justify-center gap-2">
                 @if (!editing) { <button pButton pRipple type="button" icon="pi pi-pencil" pInitEditableRow (click)="onRowEditInit(rowData)" text rounded severity="secondary"></button> }
                 @if (editing) { <button pButton pRipple type="button" icon="pi pi-check" pSaveEditableRow (click)="onRowEditSave(rowData)" text rounded severity="secondary"></button> }

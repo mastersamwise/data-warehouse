@@ -25,6 +25,7 @@ import { ConfirmDialog } from 'primeng/confirmdialog';
 import { TextareaModule } from 'primeng/textarea';
 import { Tag } from 'primeng/tag';
 import { InputNumber } from 'primeng/inputnumber';
+import { AuditInfo } from '../../../classes/Common/AuditInfo';
 
 interface Column {
     field: string;
@@ -70,6 +71,7 @@ export class PokemonList
     public pokemonEvents!: PokemonEvent[];
     public clonedPokemonEvents!: PokemonEvent[];
     cols!: Column[];
+    editingRowKeys: { [key: string]: boolean } = {};
 
     ngOnInit() {
       this.loadEvents();
@@ -88,11 +90,11 @@ export class PokemonList
         );
 
         this.cols = [
-            { field: 'eventID', header: 'Event ID', type: 'numeric', width: '5%', isEditable: false},
-            { field: 'eventName', header: 'Event Name', type: 'text', width: '15%', isEditable: true },
-            { field: 'startDate', header: 'Start Date', type: 'date', width: '10%', isEditable: true },
-            { field: 'endDate', header: 'End Date', type: 'date', width: '10%', isEditable: true },
-            { field: 'description', header: 'Description', type: 'text', width: '25%', isEditable: true }
+            { field: 'eventID', header: 'Event ID', type: 'numeric', width: '25px', isEditable: false},
+            { field: 'eventName', header: 'Event Name', type: 'text', width: '50px', isEditable: true },
+            { field: 'startDate', header: 'Start Date', type: 'date', width: '50px', isEditable: true },
+            { field: 'endDate', header: 'End Date', type: 'date', width: '50px', isEditable: true },
+            { field: 'description', header: 'Description', type: 'text', width: '75px', isEditable: true }
         ];
     }
 
@@ -105,6 +107,9 @@ export class PokemonList
     }
 
     onRowEditSave(pokemonEvent: PokemonEvent) {
+       if (pokemonEvent.isNew) {
+        pokemonEvent.isNew = false;
+      }
         //if (pokemonEvent.price > 0) {
             delete this.clonedPokemonEvents[pokemonEvent.eventID];
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pokemon Event is updated' });
@@ -116,6 +121,40 @@ export class PokemonList
     onRowEditCancel(pokemonEvent: PokemonEvent) {
         this.pokemonEvents[pokemonEvent.eventID] = this.clonedPokemonEvents[pokemonEvent.eventID];
         delete this.clonedPokemonEvents[pokemonEvent.eventID];
+    }
+
+    addRow() {
+      const lastIndex = this.pokemonEvents.length - 1;
+      const newRow: PokemonEvent = {
+        eventID: this.pokemonEvents[lastIndex].eventID + 1,
+        eventName: '',
+        isEventActive: true,
+        startDate: new Date(),
+        endDate: new Date(),
+        description: '',
+        eventType: '',
+        serialCode: '',
+        auditInfo: new AuditInfo(new Date(), '', new Date(), '', false),
+        isNew: true
+      };
+
+      this.pokemonEvents = [newRow, ...this.pokemonEvents];
+
+      this.editingRowKeys[newRow.eventID!] = true;
+    }
+
+    saveRow(pokemonEvent: PokemonEvent) {
+      if (pokemonEvent.isNew) {
+        pokemonEvent.isNew = false;
+      }
+      this.onRowEditSave(pokemonEvent);
+    }
+
+    cancelRow(pokemonEvent: PokemonEvent, index: number) {
+      if (pokemonEvent.isNew) {
+        this.pokemonEvents.splice(index, 1);
+        this.pokemonEvents = [...this.pokemonEvents];
+      }
     }
 
     updatePokemonEvent(pokemonEvent: PokemonEvent) {

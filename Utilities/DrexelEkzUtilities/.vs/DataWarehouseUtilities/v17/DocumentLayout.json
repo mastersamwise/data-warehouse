@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Nik\\Git_Repos\\data-warehouse\\Utilities\\DrexelEkzUtilities\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{5A54C038-BCA7-4F69-940D-04B37577C9D2}|DrexelEkzUtilities\\DataWarehouseUtilities.csproj|c:\\users\\nik\\git_repos\\data-warehouse\\utilities\\drexelekzutilities\\drexelekzutilities\\rawpokemoneventdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A54C038-BCA7-4F69-940D-04B37577C9D2}|DrexelEkzUtilities\\DataWarehouseUtilities.csproj|solutionrelative:drexelekzutilities\\rawpokemoneventdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A54C038-BCA7-4F69-940D-04B37577C9D2}|DrexelEkzUtilities\\DataWarehouseUtilities.csproj|c:\\users\\nik\\git_repos\\data-warehouse\\utilities\\drexelekzutilities\\drexelekzutilities\\excelreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A54C038-BCA7-4F69-940D-04B37577C9D2}|DrexelEkzUtilities\\DataWarehouseUtilities.csproj|solutionrelative:drexelekzutilities\\excelreader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A54C038-BCA7-4F69-940D-04B37577C9D2}|DrexelEkzUtilities\\DataWarehouseUtilities.csproj|c:\\users\\nik\\git_repos\\data-warehouse\\utilities\\drexelekzutilities\\drexelekzutilities\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A54C038-BCA7-4F69-940D-04B37577C9D2}|DrexelEkzUtilities\\DataWarehouseUtilities.csproj|solutionrelative:drexelekzutilities\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RawPokemonEventData.cs",
+              "DocumentMoniker": "C:\\Users\\Nik\\Git_Repos\\data-warehouse\\Utilities\\DrexelEkzUtilities\\DrexelEkzUtilities\\RawPokemonEventData.cs",
+              "RelativeDocumentMoniker": "DrexelEkzUtilities\\RawPokemonEventData.cs",
+              "ToolTip": "C:\\Users\\Nik\\Git_Repos\\data-warehouse\\Utilities\\DrexelEkzUtilities\\DrexelEkzUtilities\\RawPokemonEventData.cs",
+              "RelativeToolTip": "DrexelEkzUtilities\\RawPokemonEventData.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-02T01:19:40.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Nik\\Git_Repos\\data-warehouse\\Utilities\\DrexelEkzUtilities\\DrexelEkzUtilities\\Program.cs",
+              "RelativeDocumentMoniker": "DrexelEkzUtilities\\Program.cs",
+              "ToolTip": "C:\\Users\\Nik\\Git_Repos\\data-warehouse\\Utilities\\DrexelEkzUtilities\\DrexelEkzUtilities\\Program.cs",
+              "RelativeToolTip": "DrexelEkzUtilities\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-02T01:19:17.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ExcelReader.cs",
+              "DocumentMoniker": "C:\\Users\\Nik\\Git_Repos\\data-warehouse\\Utilities\\DrexelEkzUtilities\\DrexelEkzUtilities\\ExcelReader.cs",
+              "RelativeDocumentMoniker": "DrexelEkzUtilities\\ExcelReader.cs",
+              "ToolTip": "C:\\Users\\Nik\\Git_Repos\\data-warehouse\\Utilities\\DrexelEkzUtilities\\DrexelEkzUtilities\\ExcelReader.cs",
+              "RelativeToolTip": "DrexelEkzUtilities\\ExcelReader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-02T01:19:05.484Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
