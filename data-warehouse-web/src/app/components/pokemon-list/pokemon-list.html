@@ -7,18 +7,6 @@
     </div>
 }
 
-<!--- https://primeng.org/table#filter-basic
-      https://v20.primeng.org/table -->
-<!-- <p-toolbar class="mb-6">
-    <ng-template #start>
-        <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
-        <p-button severity="danger" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
-    </ng-template>
-    <ng-template #end>
-        <p-fileUpload mode="basic" accept="image/*" [maxFileSize]="1000000" label="Import" chooseLabel="Import" auto customUpload class="mr-2 inline-block" [chooseButtonProps]="{ severity: 'secondary' }" />
-        <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV($event)" />
-    </ng-template>
-</p-toolbar> -->
 <div class="card pokemon-table">
   <button pButton label="Add Pokemon Event" icon="pi pi-plus" (click)="addRow()"></button>
   <p-table
@@ -26,7 +14,7 @@
     class="prime-fixed-table"
     dataKey="eventID"
     editMode="row"
-    [columns]="cols"
+    [columns]="selectedColumns"
     [value]="pokemonEvents"
     [tableStyle]="{'table-layout': 'fixed', 'width': '100%'}"
     stripedRows
@@ -36,12 +24,28 @@
     [scrollable]="true"
     scrollDirection="horizontal"
     sortMode="multiple"
+    [resizableColumns]="true"
     [rowHover]="true"
   >
+    <ng-template pTemplate="caption">
+      <p-multiselect
+        display="chip"
+        [options]="cols"
+        [(ngModel)]="selectedColumns"
+        optionLabel="header"
+        selectedItemsLabel="{0} columns selected"
+        [style]="{ 'min-width': '200px' }"
+        placeholder="Choose Columns to Display" />
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
         <tr>
             @for (col of columns; track col) {
-                <th [style.width]="col.width" [style.minWidth]="col.width" [style.maxWidth]="col.width" [pSortableColumn]="col.field">
+                <th
+                  [style.width]="col.width"
+                  [style.minWidth]="col.width"
+                  [style.maxWidth]="col.width"
+                  [pSortableColumn]="col.field"
+                  pResizableColumn>
                      <div class="flex items-center gap-2">
                         {{ col.header }}
                         <p-sortIcon [field]="col.field" />

@@ -1,6 +1,6 @@
 
 // https://primeng.org/table#filter-basic
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { PokemonService } from '../../services/pokemon.service';
 import { PopoverTokenSections } from '@primeuix/themes/types/popover';
@@ -77,10 +77,12 @@ export class PokemonList
  {
     private pokemonService = inject(PokemonService);
     private messageService = inject(MessageService);
+    private changeDetector = inject(ChangeDetectorRef);
 
     public pokemonEvents!: PokemonEvent[];
     public clonedPokemonEvents!: PokemonEvent[];
     cols!: Column[];
+    selectedColumns!: Column[];
     editingRowKeys: { [key: string]: boolean } = {};
 
     public EDIT_WIDTH: string = '50px';
@@ -94,6 +96,7 @@ export class PokemonList
           next: (data: PokemonEvent[]) => {
             this.pokemonEvents = data;
             this.clonedPokemonEvents = [... data];
+            this.changeDetector.markForCheck();
             console.log('Events loaded successfully: ', this.pokemonEvents);
           },
           error: (error: any) => {
@@ -102,6 +105,7 @@ export class PokemonList
         );
 
         this.cols = [... pokemonColumns];
+        this.selectedColumns = pokemonColumns;
     }
 
     clearTable(pokemonEvents: PokemonEvent[]) {
