@@ -1,11 +1,11 @@
 <h2>Pokemon Events</h2>
-<button (click)="loadEvents()">Load Events</button>
+<!-- <button (click)="loadEvents()">Load Events</button>
 
 @if (pokemonEvents && pokemonEvents.length === 0) {
     <div>
         Click the button to load events.
     </div>
-}
+} -->
 
 <div class="card pokemon-table">
   <button pButton label="Add Pokemon Event" icon="pi pi-plus" (click)="addRow()"></button>
@@ -104,6 +104,13 @@
                         </textarea>
                       </ng-template>
                     }
+                    @case ('numeric') {
+                      <ng-template pTemplate="input">
+                        <p-inputNumber
+                          class="flex-auto"
+                          [(ngModel)]="selectedPokemonEvent[col.field]" />
+                      </ng-template>
+                    }
                   }
 
                   @switch (col.type) {
@@ -122,6 +129,11 @@
                           {{ rowData[col.field] }}
                       </ng-template>
                     }
+                    @case('numeric') {
+                      <ng-template pTemplate="output">
+                          {{ rowData[col.field] }}
+                      </ng-template>
+                    }
                   }
                 </p-cellEditor>
               }
@@ -132,7 +144,8 @@
           }
           <td [style.width]="EDIT_WIDTH" [style.min-width]="EDIT_WIDTH" [style.maxwidth]="EDIT_WIDTH">
             <div class="flex items-center justify-center gap-2">
-                @if (!editing) { <button pButton pRipple type="button" icon="pi pi-pencil" pInitEditableRow (click)="onRowEditInit(rowData)" text rounded severity="secondary"></button> }
+                @if (!editing) { <button pButton pRipple type="button" icon="pi pi-pencil" pInitEditableRow (click)="showEditDialog(rowData)" text rounded severity="secondary"></button> }
+                @if (!editing) { <button pButton pRipple type="button" icon="pi pi-check" pInitEditableRow (click)="onRowEditInit(rowData)" text rounded severity="secondary"></button> }
                 @if (editing) { <button pButton pRipple type="button" icon="pi pi-check" pSaveEditableRow (click)="onRowEditSave(rowData)" text rounded severity="secondary"></button> }
                 @if (editing) { <button pButton pRipple type="button" icon="pi pi-times" pCancelEditableRow (click)="onRowEditCancel(rowData)" text rounded severity="secondary"></button> }
             </div>
@@ -155,25 +168,41 @@
 
     <span class="text-surface-500 dark:text-surface-400 block mb-8">Update the event info</span>
     @for (col of cols; track col.field) {
-      <div class="field">
-        <div class="flex gap-4 mb-4">
-          <label class="font-semibold w-24">{{col.header}}</label>
+      @if (col.isEditable) {
+        <div class="flex gap-3 mb-3">
+          <label class="font-semibold w-32">{{col.header}}</label>
           
-          @if (col.type === 'text') {
-            <input 
-              pInputText  
-              [(ngModel)]="selectedPokemonEvent[col.field]"
-            />
-          }
-
-          @if (col.type === 'date') {
-            <p-datepicker
-              dateFormat="mm-dd-yyyy"
-              [(ngModel)]="selectedPokemonEvent[col.field]"
-            />
+          @switch (col.type) {
+            @case('text') {
+              <input 
+                pInputText  
+                class="flex-auto"
+                [(ngModel)]="selectedPokemonEvent[col.field]"
+              />
+            }
+            @case('date') {
+              <p-datepicker
+                class="flex-auto"
+                dateFormat="mm-dd-yyyy"
+                [(ngModel)]="selectedPokemonEvent[col.field]"
+              />
+            }
+            @case('textarea') {
+              <textarea
+                pInputTextarea
+                rows="3"
+                class="flex-auto"
+                [(ngModel)]="selectedPokemonEvent[col.field]">
+              </textarea>
+            }
+            @case ('numeric') {
+              <p-inputNumber
+                class="flex-auto"
+                [(ngModel)]="selectedPokemonEvent[col.field]" />
+            }
           }
         </div>
-      </div>
+      }
     }
 
     <ng-template #footer>

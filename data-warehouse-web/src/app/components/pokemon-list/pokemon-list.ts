@@ -28,11 +28,14 @@ import { InputNumber } from 'primeng/inputnumber';
 import { AuditInfo } from '../../../classes/Common/AuditInfo';
 import { DatePipe } from '@angular/common';
 import { DatePicker } from "primeng/datepicker";
+import { MatNoDataRow } from "@angular/material/table";
+
+export type ColumnType = 'text' | 'date' | 'textarea' | 'numeric';
 
 interface Column {
     field: keyof PokemonEvent;
     header: string;
-    type: string;
+    type: ColumnType;
     width: string;
     isEditable: boolean;
 }
@@ -69,7 +72,8 @@ const pokemonColumns: Column[] = [
     TextareaModule,
     ToastModule,
     ToolbarModule,
-    DatePicker
+    DatePicker,
+    MatNoDataRow
 ],
   providers: [
     DatePipe,
