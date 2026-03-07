@@ -60,7 +60,8 @@
                     <p-columnFilter
                       [type]="col.type"
                       [field]="col.field"
-                      filterOn="input">
+                      filterOn="input"
+                      matchMode="contains">
                     </p-columnFilter>
                 </th>
             }
@@ -70,20 +71,58 @@
     <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing">
         <tr [pEditableRow]="rowData">
           @for (col of columns; track col) {
-            <td [style.width]="col.width" [style.minWidth]="col.width" [style.maxWidth]="col.width">
+            <td [style.width]="col.width" [style.minWidth]="col.width" [style.maxWidth]="col.width" style="white-space: normal; word-break: break-word;">
               @if (col.isEditable) {
                 <p-cellEditor>
-                  <ng-template pTemplate="input">
-                      <input
-                        pInputText
-                        class="w-full"
-                        [type]="col.type"
-                        [(ngModel)]="rowData[col.field]"
-                      />
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                      {{ rowData[col.field] }}
-                  </ng-template>
+                  @switch (col.type) {
+                    @case('text') {
+                      <ng-template pTemplate="input">
+                          <input
+                            pInputText
+                            class="w-full"
+                            [(ngModel)]="rowData[col.field]"
+                          />
+                      </ng-template>
+                    }
+                    @case('date') {
+                      <ng-template pTemplate="input">
+                          <p-datepicker
+                            class="w-full"
+                            dateFormat="MM-dd-yyyy"
+                            appendTo="body"
+                            [(ngModel)]="rowData[col.field]"
+                          />
+                      </ng-template>
+                    }
+                    @case('textarea') {
+                      <ng-template pTemplate="input">
+                        <textarea
+                          pInputTextarea
+                          rows="4"
+                          class="flex-auto"
+                          [(ngModel)]="rowData[col.field]">
+                        </textarea>
+                      </ng-template>
+                    }
+                  }
+
+                  @switch (col.type) {
+                    @case('text') {
+                      <ng-template pTemplate="output">
+                          {{ rowData[col.field] }}
+                      </ng-template>
+                    }
+                    @case('date') {
+                      <ng-template pTemplate="output">
+                          {{ rowData[col.field] | date: 'MM-dd-yyyy' }}
+                      </ng-template>
+                    }
+                    @case('textarea') {
+                      <ng-template pTemplate="output">
+                          {{ rowData[col.field] }}
+                      </ng-template>
+                    }
+                  }
                 </p-cellEditor>
               }
               @else {
@@ -101,4 +140,46 @@
         </tr>
     </ng-template>
   </p-table>
+
+  <p-dialog 
+    header="Edit Pokemon Event" 
+    [modal]="true" 
+    [(visible)]="isEditDialogVisible" 
+    [style]="{ width: '25rem' }">
+
+    <ng-template #header>
+      <div class="inline-flex items-center justify-center gap-2">
+          <span class="font-bold whitespace-nowrap">Amy Elsner</span>
+      </div>
+    </ng-template>
+
+    <span class="text-surface-500 dark:text-surface-400 block mb-8">Update the event info</span>
+    @for (col of cols; track col.field) {
+      <div class="field">
+        <div class="flex gap-4 mb-4">
+          <label class="font-semibold w-24">{{col.header}}</label>
+          
+          @if (col.type === 'text') {
+            <input 
+              pInputText  
+              [(ngModel)]="selectedPokemonEvent[col.field]"
+            />
+          }
+
+          @if (col.type === 'date') {
+            <p-datepicker
+              dateFormat="mm-dd-yyyy"
+              [(ngModel)]="selectedPokemonEvent[col.field]"
+            />
+          }
+        </div>
+      </div>
+    }
+
+    <ng-template #footer>
+        <p-button label="Cancel" [text]="true" severity="secondary" (click)="isEditDialogVisible = false" />
+        <p-button label="Save" [outlined]="true" severity="secondary" (click)="savePokemonEventChange(selectedPokemonEvent)" />
+    </ng-template>
+
+    </p-dialog>
 </div>

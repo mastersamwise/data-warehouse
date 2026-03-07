@@ -26,23 +26,25 @@ import { TextareaModule } from 'primeng/textarea';
 import { Tag } from 'primeng/tag';
 import { InputNumber } from 'primeng/inputnumber';
 import { AuditInfo } from '../../../classes/Common/AuditInfo';
+import { DatePipe } from '@angular/common';
+import { DatePicker } from "primeng/datepicker";
 
 interface Column {
-    field: string;
+    field: keyof PokemonEvent;
     header: string;
     type: string;
     width: string;
     isEditable: boolean;
 }
 
-const pokemonColumns = [
+const pokemonColumns: Column[] = [
   { field: 'eventID', header: 'Event ID', type: 'numeric', width: '75px', isEditable: false},
   { field: 'eventName', header: 'Event Name', type: 'text', width: '150px', isEditable: true },
   { field: 'eventType', header: 'Event Type', type: 'text', width: '150px', isEditable: true },
   { field: 'startDate', header: 'Start Date', type: 'date', width: '115px', isEditable: true },
   { field: 'endDate', header: 'End Date', type: 'date', width: '115px', isEditable: true },
   { field: 'serialCode', header: 'Code', type: 'text', width: '150px', isEditable: true },
-  { field: 'description', header: 'Description', type: 'text', width: '150px', isEditable: true }
+  { field: 'description', header: 'Description', type: 'textarea', width: '150px', isEditable: true }
 ];
 
 @Component({
@@ -51,6 +53,7 @@ const pokemonColumns = [
   imports: [
     ButtonModule,
     ConfirmDialog,
+    DatePipe,
     Dialog,
     FormsModule,
     IconFieldModule,
@@ -65,9 +68,11 @@ const pokemonColumns = [
     TagModule,
     TextareaModule,
     ToastModule,
-    ToolbarModule
-  ],
+    ToolbarModule,
+    DatePicker
+],
   providers: [
+    DatePipe,
     MessageService,
     PokemonService
   ],
@@ -78,12 +83,15 @@ export class PokemonList
     private pokemonService = inject(PokemonService);
     private messageService = inject(MessageService);
     private changeDetector = inject(ChangeDetectorRef);
+    private datePipe = inject(DatePipe);
+    private editingRowKeys: { [key: string]: boolean } = {};
 
     public pokemonEvents!: PokemonEvent[];
     public clonedPokemonEvents!: PokemonEvent[];
-    cols!: Column[];
-    selectedColumns!: Column[];
-    editingRowKeys: { [key: string]: boolean } = {};
+    public selectedPokemonEvent: any = {};
+    public selectedColumns: Column[] = pokemonColumns;
+    public cols: Column[] = [... pokemonColumns];
+    public isEditDialogVisible: boolean = false;
 
     public EDIT_WIDTH: string = '50px';
 
@@ -104,8 +112,6 @@ export class PokemonList
           }}
         );
 
-        this.cols = [... pokemonColumns];
-        this.selectedColumns = pokemonColumns;
     }
 
     clearTable(pokemonEvents: PokemonEvent[]) {
@@ -129,7 +135,8 @@ export class PokemonList
     }
 
     onRowEditCancel(pokemonEvent: PokemonEvent) {
-        this.pokemonEvents[pokemonEvent.eventID] = this.clonedPokemonEvents[pokemonEvent.eventID];
+        // indexing of array is not necessarily the eventID
+        //this.pokemonEvents[pokemonEvent.eventID] = this.clonedPokemonEvents[pokemonEvent.eventID];
         delete this.clonedPokemonEvents[pokemonEvent.eventID];
     }
 
@@ -169,5 +176,16 @@ export class PokemonList
 
     updatePokemonEvent(pokemonEvent: PokemonEvent) {
 
+    }
+
+    showEditDialog(pokemonEvent: any) {
+      this.selectedPokemonEvent = {... pokemonEvent};
+      this.isEditDialogVisible = true;
+    }
+
+    savePokemonEventChange(pokemonEvent: PokemonEvent) {
+      const i = this.pokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
+      this.pokemonEvents[i] = pokemonEvent;
+      this.isEditDialogVisible = false;
     }
 }

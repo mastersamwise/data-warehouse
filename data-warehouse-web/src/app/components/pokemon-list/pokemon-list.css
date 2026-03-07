@@ -27,3 +27,8 @@
     width: 100% !important;
     box-sizing: border-box;
 }
+
+:host ::ng-deep .p-datatable td {
+  white-space: normal;
+  word-break: break-word;
+}
