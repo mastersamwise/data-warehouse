@@ -131,7 +131,8 @@ export class PokemonList
         pokemonEvent.isNew = false;
       }
         //if (pokemonEvent.price > 0) {
-            delete this.clonedPokemonEvents[pokemonEvent.eventID];
+            const i = this.clonedPokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
+            delete this.clonedPokemonEvents[i];
             this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pokemon Event is updated' });
         //} else {
             // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
@@ -139,8 +140,8 @@ export class PokemonList
     }
 
     onRowEditCancel(pokemonEvent: PokemonEvent) {
-        // indexing of array is not necessarily the eventID
-        //this.pokemonEvents[pokemonEvent.eventID] = this.clonedPokemonEvents[pokemonEvent.eventID];
+        const i = this.pokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
+        this.pokemonEvents[i] = pokemonEvent;
         delete this.clonedPokemonEvents[pokemonEvent.eventID];
     }
 
@@ -155,6 +156,7 @@ export class PokemonList
         description: '',
         eventType: '',
         serialCode: '',
+        teraType: '',
         auditInfo: new AuditInfo(new Date(), '', new Date(), '', false),
         isNew: true
       };

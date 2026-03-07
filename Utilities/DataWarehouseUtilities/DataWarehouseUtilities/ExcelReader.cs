@@ -79,9 +79,9 @@ namespace DataWarehouseUtilities
             using var reader = ExcelDataReader.Create(filename);
             CheckColumnOrdinalsWithSylvan(reader, filename);
 
-            foreach (RawBrotherData item in reader.GetRecords<RawBrotherData>())
+            foreach (RawPokemonEventData item in reader.GetRecords<RawPokemonEventData>())
             {
-                Console.WriteLine($"Brother {item.firstName} {item.lastName}, EK: {item.ekNumber}");
+                Console.WriteLine($"Pokemon {item.eventName} {item.eventID}");
             }
 
         }

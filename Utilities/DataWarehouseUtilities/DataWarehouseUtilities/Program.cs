@@ -9,12 +9,9 @@ namespace DataWarehouseUtilities
 
         static void Main(string[] args)
         {
-            string file1 = @"..\\..\\..\\..\\20241116_LXA_EKZ_MASTER_BROTHERS_LIST_0.xlsx";
-            string file2 = @"..\\..\\..\\..\\test.xlsx";
-            string file3 = @"C:\Users\Nik\Dropbox\LXA\drexel-ekzalumni_site\20241116_LXA_EKZ_MASTER_BROTHERS_LIST_0.xlsx";
-            string file4 = @"C:\Users\Nik\Dropbox\LXA\drexel-ekzalumni_site\test.xlsx";
+            string file1 = @"Resources/Pokemon.xslx";
 
-            string EXCEL_FILE = file3;
+            string EXCEL_FILE = file1;
 
             FileInfo directory = new FileInfo(EXCEL_FILE);
 
