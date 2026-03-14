@@ -6,7 +6,7 @@ CREATE TABLE pokemon_events
     event_name          VARCHAR(100)    NOT NULL,
     event_type          VARCHAR(100)    NOT NULL,
     start_date          DATE            NOT NULL,
-    end_date            DATE            NOT NULL,
+    end_date            DATE            NULL DEFAULT '2525-01-01 00:00:00',
     tera_type           VARCHAR(20)     NULL DEFAULT '-',
     serial_code         VARCHAR(50)     NULL DEFAULT '-',
     description         VARCHAR(250)    NULL,
@@ -17,4 +17,4 @@ CREATE TABLE pokemon_events
     is_deleted          BOOLEAN         DEFAULT FALSE
 );
 
-ALTER TABLE pokemon_events ADD CONSTRAINT C_U_EVENT UNIQUE (event_name, start_date);
+ALTER TABLE pokemon_events ADD CONSTRAINT C_U_EVENT UNIQUE (event_name, start_date, serial_code);

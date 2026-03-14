@@ -42,6 +42,7 @@ interface Column {
 
 const pokemonColumns: Column[] = [
   { field: 'eventID', header: 'Event ID', type: 'numeric', width: '75px', isEditable: false},
+  { field: 'isEventActive', header: 'Is Active', type: 'text', width: '75px', isEditable: false},
   { field: 'eventName', header: 'Event Name', type: 'text', width: '150px', isEditable: true },
   { field: 'eventType', header: 'Event Type', type: 'text', width: '150px', isEditable: true },
   { field: 'startDate', header: 'Start Date', type: 'date', width: '115px', isEditable: true },
