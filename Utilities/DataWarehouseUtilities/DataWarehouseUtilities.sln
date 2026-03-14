@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataWarehouseUtilities", "DrexelEkzUtilities\DataWarehouseUtilities.csproj", "{5A54C038-BCA7-4F69-940D-04B37577C9D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataWarehouseUtilities", "DataWarehouseUtilities\DataWarehouseUtilities.csproj", "{5A54C038-BCA7-4F69-940D-04B37577C9D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

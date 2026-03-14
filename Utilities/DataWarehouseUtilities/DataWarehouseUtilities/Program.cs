@@ -9,9 +9,10 @@ namespace DataWarehouseUtilities
 
         static void Main(string[] args)
         {
-            string file1 = @"Resources/Pokemon.xslx";
+            string file1 = @"Resources/Pokemon.xlsx";
+            string file2 = @"C:\Users\Nik\Git_Repos\data-warehouse\Utilities\DataWarehouseUtilities\DataWarehouseUtilities\Resources\Pokemon.xlsx";
 
-            string EXCEL_FILE = file1;
+            string EXCEL_FILE = file2;
 
             FileInfo directory = new FileInfo(EXCEL_FILE);
 
