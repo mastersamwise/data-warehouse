@@ -2,6 +2,8 @@ data-warehouse-web/node_modules/
 data-warehouse-web/dist/
 **/.vscode/**
 DataWarehouse/.vs/
+Utilities/.vs/
+DataWarehouseUtilities/.vs/
 **/bin/**
 **/obj/**
 **/*.cache
