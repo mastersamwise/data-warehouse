@@ -10,7 +10,11 @@
 
 ## Dockerize
 https://gemini.google.com/app/7a270bba55a136d4
+Github Synology Docker token: `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`
 
-Build: Run docker build -t your-username/my-app .
+docker build --platform linux/amd64 -t ghcr.io/mastersamwise/data-warehouse:latest .
+Login: docker login ghcr.io -u mastersamwise
 
-Push: Run docker push your-username/my-app
+Build: docker build -t ghcr.io/mastersamwise/data-warehouse:latest .
+
+Push: docker push ghcr.io/mastersamwise/data-warehouse:latest

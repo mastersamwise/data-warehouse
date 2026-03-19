@@ -1,6 +1,6 @@
 services:
   web-app:
-    image: your-dockerhub-username/data-warehouse:latest
+    image: mastersamwise/data-warehouse:latest
     container_name: data-warehouse
     ports:
       - "8080:8080"

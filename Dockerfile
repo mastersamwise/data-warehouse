@@ -1,23 +1,34 @@
-# Stage 1: Build Angular
-FROM node:latest AS node-build
+# STAGE 1: Angular (Same as before)
+FROM node:18-alpine AS node-build
 WORKDIR /app/client
 COPY data-warehouse-web/package*.json ./
 RUN npm install
 COPY data-warehouse-web/ .
-RUN npm run build --prod
+RUN npm run build --configuration production
 
-# Stage 2: Build .NET
+# STAGE 2: .NET (Updated for double-folder structure)
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS dotnet-build
-WORKDIR /DataWarehouse/DataWarehouse
-COPY *.csproj .
-RUN dotnet restore
-COPY . .
-RUN dotnet publish -c Release -o /publish
+WORKDIR /src
 
-# Stage 3: Final Runtime
+# Copy the csproj from the double-nested folder
+# Path: Root -> DataWarehouse -> DataWarehouse -> .csproj
+COPY DataWarehouse/DataWarehouse/DataWarehouse.csproj ./DataWarehouse/DataWarehouse/
+RUN dotnet restore "DataWarehouse/DataWarehouse/DataWarehouse.csproj"
+
+# Copy everything else
+COPY . .
+
+# Move into the inner folder where the code actually lives
+WORKDIR "/src/DataWarehouse/DataWarehouse"
+RUN dotnet publish "DataWarehouse.csproj" -c Release -o /publish
+
+# STAGE 3: Final Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=dotnet-build /publish .
-# Copy Angular files into the .NET wwwroot
-COPY --from=node-build /app/client/dist/your-app-name/browser ./wwwroot
-ENTRYPOINT ["dotnet", "YourApp.dll"]
+
+# IMPORTANT: Double check this path in your local 'dist' folder!
+COPY --from=node-build /app/client/dist/data-warehouse/browser ./wwwroot
+
+EXPOSE 8080
+ENTRYPOINT ["dotnet", "DataWarehouse.dll"]
