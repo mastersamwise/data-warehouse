@@ -13,6 +13,3 @@ services:
         limits:
           memory: 800M 
     restart: always
-
-
-# Github Synology Docker token: `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`
