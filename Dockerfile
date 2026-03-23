@@ -31,4 +31,5 @@ COPY --from=dotnet-build /publish .
 COPY --from=node-build /app/client/dist/data-warehouse-web/browser ./wwwroot
 
 EXPOSE 8080
-ENTRYPOINT ["dotnet", "DataWarehouse.dll"]
+#ENTRYPOINT ["dotnet", "DataWarehouse.dll"]
+ENTRYPOINT ["./entrypoint.sh"]

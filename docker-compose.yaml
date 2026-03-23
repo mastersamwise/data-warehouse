@@ -5,6 +5,7 @@ services:
     ports:
       - "8080:8080"
     environment:
+      - API_URL=http://10.160.0.123:4200 # Point this to your .NET backend port
       # Use the Docker Gateway IP to talk to the Synology Host
       - ConnectionStrings__DefaultConnection=Server=172.17.0.1;Port=3306;Database=nbourne;Uid=nbourne;Pwd=Sam4wise8!;
       - ASPNETCORE_URLS=http://+:8080
