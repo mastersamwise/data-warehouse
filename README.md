@@ -10,8 +10,7 @@
 
 ## Dockerize
 https://gemini.google.com/app/7a270bba55a136d4
-Github Synology Docker token: `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`
-Github Synology Docker token: new `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`
+github tokens located at C:\Users\Nik\Git_Repos\github_tokens.txt
 
 docker build --platform linux/amd64 -t ghcr.io/mastersamwise/data-warehouse:latest .
 Login: docker login ghcr.io -u mastersamwise
