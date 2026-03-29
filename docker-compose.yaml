@@ -3,7 +3,7 @@ services:
     image: mastersamwise/data-warehouse:latest
     container_name: data-warehouse
     ports:
-      - "8080:8080"
+      - "8080:4200"   # NAS 8080 -> Nodejs 4200
     environment:
       - API_URL=http://10.160.0.123:4200 # Point this to your .NET backend port
       # Use the Docker Gateway IP to talk to the Synology Host
