@@ -28,8 +28,9 @@ WORKDIR /app
 COPY --from=dotnet-build /publish .
 
 # IMPORTANT: Double check this path in your local 'dist' folder!
-COPY --from=node-build /app/client/dist/data-warehouse-web/browser ./wwwroot
+COPY --from=node-build /data-warehouse/data-warehouse-web/dist/data-warehouse-web/browser ./wwwroot
 
 EXPOSE 8080
 #ENTRYPOINT ["dotnet", "DataWarehouse.dll"]
-ENTRYPOINT ["./entrypoint.sh"]
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["/bin/bash", "./entrypoint.sh"]

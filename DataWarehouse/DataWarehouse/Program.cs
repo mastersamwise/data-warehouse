@@ -31,6 +31,10 @@ app.UseRouting();
 app.UseCors();              // This applies the default policy
 app.UseAuthorization();
 
+// added 2026-03-28 from gemini to get app to deploy in docker on NAS
+app.UseStaticFiles();
+app.MapFallbackToFile("index.html");
+
 app.MapControllers();
 
 app.Run();
