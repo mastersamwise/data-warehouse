@@ -7,15 +7,15 @@
     </div>
 } -->
 
-<div class="card pokemon-table">
-  <button pButton label="Add Pokemon Event" icon="pi pi-plus" (click)="addRow()"></button>
+<div class="card core-dw-table">
+  <button pButton [label]="addButtonLabel" icon="pi pi-plus" (click)="addRow()"></button>
   <p-table
     #dt2
     class="prime-fixed-table"
-    dataKey="eventID"
+    dataKey={{tableDataKey}}
     editMode="row"
     [columns]="selectedColumns"
-    [value]="pokemonEvents"
+    [value]="rowData"
     [tableStyle]="{'table-layout': 'fixed', 'width': '100%'}"
     stripedRows
     [paginator]="true"
@@ -108,7 +108,7 @@
                       <ng-template pTemplate="input">
                         <p-inputNumber
                           class="flex-auto"
-                          [(ngModel)]="selectedPokemonEvent[col.field]" />
+                          [(ngModel)]="selectedRow[col.field]" />
                       </ng-template>
                     }
                   }
@@ -177,14 +177,14 @@
               <input
                 pInputText
                 class="flex-auto"
-                [(ngModel)]="selectedPokemonEvent[col.field]"
+                [(ngModel)]="selectedRow[col.field]"
               />
             }
             @case('date') {
               <p-datepicker
                 class="flex-auto"
                 dateFormat="mm-dd-yyyy"
-                [(ngModel)]="selectedPokemonEvent[col.field]"
+                [(ngModel)]="selectedRow[col.field]"
               />
             }
             @case('textarea') {
@@ -192,13 +192,13 @@
                 pInputTextarea
                 rows="3"
                 class="flex-auto"
-                [(ngModel)]="selectedPokemonEvent[col.field]">
+                [(ngModel)]="selectedRow[col.field]">
               </textarea>
             }
             @case ('numeric') {
               <p-inputNumber
                 class="flex-auto"
-                [(ngModel)]="selectedPokemonEvent[col.field]" />
+                [(ngModel)]="selectedRow[col.field]" />
             }
           }
         </div>
@@ -207,7 +207,7 @@
 
     <ng-template #footer>
         <p-button label="Cancel" [text]="true" severity="secondary" (click)="isEditDialogVisible = false" />
-        <p-button label="Save" [outlined]="true" severity="secondary" (click)="savePokemonEventChange(selectedPokemonEvent)" />
+        <p-button label="Save" [outlined]="true" severity="secondary" (click)="savePokemonEventChange(selectedRow)" />
     </ng-template>
 
     </p-dialog>

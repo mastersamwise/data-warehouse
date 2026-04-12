@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomTable } from './custom-table';
+import { CoreDwTable } from './core-dw-table';
 
-describe('CustomTable', () => {
-  let component: CustomTable;
-  let fixture: ComponentFixture<CustomTable>;
+describe('CoreDwTable', () => {
+  let component: CoreDwTable;
+  let fixture: ComponentFixture<CoreDwTable>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CustomTable]
+      imports: [CoreDwTable]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CustomTable);
+    fixture = TestBed.createComponent(CoreDwTable);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

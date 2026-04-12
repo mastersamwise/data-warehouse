@@ -1,0 +1,34 @@
+.core-dw-table {
+  width: 100%;
+}
+
+:host ::ng-deep .p-column-filter,
+:host ::ng-deep .p-column-filter .p-inputtext,
+:host ::ng-deep .p-cell-editor-input,
+:host ::ng-deep .p-cell-editor-input .p-inputtext {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+:host ::ng-deep .p-column-filter .p-inputnumber {
+    width: 100% !important;
+}
+
+:host ::ng-deep .p-column-filter .p-inputnumber .p-inputtext {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+:host ::ng-deep .p-inputnumber {
+    width: 100% !important;
+}
+
+:host ::ng-deep .p-inputnumber .p-inputtext {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+:host ::ng-deep .p-datatable td {
+  white-space: normal;
+  word-break: break-word;
+}

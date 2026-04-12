@@ -1,7 +1,10 @@
 import { AuditInfo } from "../Common/AuditInfo";
+import { ICoreDwColumn } from "../Common/ICoreDwColumn";
+import { ICoreDwRow } from "../Common/ICoreDwRow";
 
-export class PokemonEvent {
+export class PokemonEvent implements ICoreDwRow{
 
+    public id: number;
     public eventID: number;
     public isEventActive: boolean;
     public eventName: string;
@@ -13,8 +16,9 @@ export class PokemonEvent {
     public description: string;
     public isNew: boolean;
     public auditInfo: AuditInfo;
-    
+
     static emptyEvent: PokemonEvent = {
+        id: -1,
         eventID: -1,
         isEventActive : true,
         eventName: '',
@@ -43,6 +47,7 @@ export class PokemonEvent {
                 inUpdatedDate: Date,
                 inUpdatedBy: string,
                 inIsDeleted: boolean) {
+        this.id = inEventID;
         this.eventID = inEventID;
         this.isEventActive = inIsEventActive;
         this.eventName = inEventName;
