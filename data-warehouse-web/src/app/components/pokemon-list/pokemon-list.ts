@@ -182,7 +182,18 @@ export class PokemonList
     }
 
     updatePokemonEvent(pokemonEvent: PokemonEvent) {
-
+      this.pokemonService.updatePokemonEvent(pokemonEvent).subscribe({
+          next: (data: PokemonEvent[]) => {
+            //this.pokemonEvents.find(e => e.eventID == pokemonEvent.eventID) = data;
+            //this.clonedPokemonEvents = [... data];
+            //this.changeDetector.markForCheck();
+            console.log(`EventID: ${pokemonEvent.eventID} loaded successfully: `, this.pokemonEvents);
+            this.refreshData();
+          },
+          error: (error: any) => {
+            console.error(`There was an error updating eventID: ${pokemonEvent.eventID}`, error);
+          }}
+        );
     }
 
     showEditDialog(pokemonEvent: any) {
@@ -194,5 +205,9 @@ export class PokemonList
       const i = this.pokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
       this.pokemonEvents[i] = pokemonEvent;
       this.isEditDialogVisible = false;
+    }
+
+    private refreshData() {
+      this.loadEvents();
     }
 }
