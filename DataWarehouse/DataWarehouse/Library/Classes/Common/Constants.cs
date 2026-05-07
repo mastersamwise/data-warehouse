@@ -12,7 +12,8 @@ namespace DataWarehouse.Library.Classes.Common
         /// </summary>
         private static string CHAR_SET = "charset=utf8mb4;";
         private static string TIMEOUT = "";
-        public static string DB_CONNECTION_NAS = $"server=10.160.0.123;port=3306;user=nbourne;password=Sam4wise8!;database=nbourne;{CHAR_SET}{TIMEOUT}";
+        //public static string DB_CONNECTION_NAS = $"server=10.160.0.123;port=3306;user=nbourne;password=Sam4wise8!;database=nbourne;{CHAR_SET}{TIMEOUT}";
+        public static string DB_CONNECTION_NAS = $"server=100.93.226.46;port=3306;user=nbourne;password=Sam4wise8!;database=nbourne;{CHAR_SET}{TIMEOUT}";
         
     }
 }
