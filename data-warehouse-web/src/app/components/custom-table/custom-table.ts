@@ -99,6 +99,7 @@ export class CustomTable
     public isEditDialogVisible: boolean = false;
 
     public buttonAddLabel: string = "";
+    public buttonAddClick: 
     public EDIT_WIDTH: string = '50px';
 
     ngOnInit() {
