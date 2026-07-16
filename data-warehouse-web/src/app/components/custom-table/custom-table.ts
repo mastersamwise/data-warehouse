@@ -1,6 +1,6 @@
 
 // https://primeng.org/table#filter-basic
-import { ChangeDetectorRef, Component, Input, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { PokemonService } from '../../services/pokemon.service';
 import { PopoverTokenSections } from '@primeuix/themes/types/popover';
@@ -94,122 +94,38 @@ export class CustomTable
     public pokemonEvents!: PokemonEvent[];
     public clonedPokemonEvents!: PokemonEvent[];
     public selectedPokemonEvent: any = {};
-    public selectedColumns: Column[] = pokemonColumns;
+    //public selectedColumns: Column[] = pokemonColumns;
     public cols: Column[] = [... pokemonColumns];
     public isEditDialogVisible: boolean = false;
 
-    public buttonAddLabel: string = "";
-    public buttonAddClick: 
     public EDIT_WIDTH: string = '50px';
 
-    ngOnInit() {
-      this.loadEvents();
+    @Input() public buttonAddLabel: string = "Add Item";
+
+    @Input() public rowKey: string = "id";
+    @Input() public editMode: string = "row";
+    @Input() public allColumns: any[] = [];
+    @Input() public selectedColumns: any[] = [];
+    @Input() public numRowsToDisplay: number = 25;
+    @Input() public isScrollable: string = "true";
+    @Input() public scrollDirection: string = "horizontal";
+    @Input() public sortMode: string = "multiple";
+    @Input() public areColumnsResizable: string = "true";
+    @Input() public shouldShowRowHover: string = "true"
+
+    @Input() public dialogHeader: string = "Edit Item";
+    @Input() public dialogEditHeader: string = "Update the item info";
+
+    @Output() public rowAdded = new EventEmitter<void>(); 
+    @Output() public rowSaved = new EventEmitter<void>(); 
+
+    addRow(): void {
+      new this.rowAdded().emit();
     }
 
-    loadEvents() {
-        this.pokemonService.getPokemonEvents().subscribe({
-          next: (data: PokemonEvent[]) => {
-            this.pokemonEvents = data;
-            this.clonedPokemonEvents = [... data];
-            this.changeDetector.markForCheck();
-            console.log('Events loaded successfully: ', this.pokemonEvents);
-          },
-          error: (error: any) => {
-            console.error('There was an error loading the events:', error);
-          }}
-        );
-
+    saveRow(): void {
+      this.rowSaved.emit();
     }
 
-    clearTable(pokemonEvents: PokemonEvent[]) {
-      pokemonEvents = [];
-    }
 
-    onRowEditInit(pokemonEvent: PokemonEvent) {
-        this.clonedPokemonEvents[pokemonEvent.eventID] = { ...pokemonEvent };
-    }
-
-    onRowEditSave(pokemonEvent: PokemonEvent) {
-       if (pokemonEvent.isNew) {
-        pokemonEvent.isNew = false;
-      }
-        //if (pokemonEvent.price > 0) {
-            const i = this.clonedPokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
-            delete this.clonedPokemonEvents[i];
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pokemon Event is updated' });
-        //} else {
-            // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
-        //}
-    }
-
-    onRowEditCancel(pokemonEvent: PokemonEvent) {
-        const i = this.pokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
-        this.pokemonEvents[i] = pokemonEvent;
-        delete this.clonedPokemonEvents[pokemonEvent.eventID];
-    }
-
-    addRow() {
-      const lastIndex = this.pokemonEvents.length - 1;
-      const newRow: PokemonEvent = {
-        eventID: this.pokemonEvents[lastIndex].eventID + 1,
-        eventName: '',
-        isEventActive: true,
-        startDate: new Date(),
-        endDate: new Date(),
-        description: '',
-        eventType: '',
-        serialCode: '',
-        teraType: '',
-        auditInfo: new AuditInfo(new Date(), '', new Date(), '', false),
-        isNew: true
-      };
-
-      this.pokemonEvents = [newRow, ...this.pokemonEvents];
-
-      this.editingRowKeys[newRow.eventID!] = true;
-    }
-
-    saveRow(pokemonEvent: PokemonEvent) {
-      if (pokemonEvent.isNew) {
-        pokemonEvent.isNew = false;
-      }
-      this.onRowEditSave(pokemonEvent);
-    }
-
-    cancelRow(pokemonEvent: PokemonEvent, index: number) {
-      if (pokemonEvent.isNew) {
-        this.pokemonEvents.splice(index, 1);
-        this.pokemonEvents = [...this.pokemonEvents];
-      }
-    }
-
-    updatePokemonEvent(pokemonEvent: PokemonEvent) {
-      this.pokemonService.updatePokemonEvent(pokemonEvent).subscribe({
-          next: (data: PokemonEvent[]) => {
-            //this.pokemonEvents.find(e => e.eventID == pokemonEvent.eventID) = data;
-            //this.clonedPokemonEvents = [... data];
-            //this.changeDetector.markForCheck();
-            console.log(`EventID: ${pokemonEvent.eventID} loaded successfully: `, this.pokemonEvents);
-            this.refreshData();
-          },
-          error: (error: any) => {
-            console.error(`There was an error updating eventID: ${pokemonEvent.eventID}`, error);
-          }}
-        );
-    }
-
-    showEditDialog(pokemonEvent: any) {
-      this.selectedPokemonEvent = {... pokemonEvent};
-      this.isEditDialogVisible = true;
-    }
-
-    savePokemonEventChange(pokemonEvent: PokemonEvent) {
-      const i = this.pokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
-      this.pokemonEvents[i] = pokemonEvent;
-      this.isEditDialogVisible = false;
-    }
-
-    private refreshData() {
-      this.loadEvents();
-    }
 }

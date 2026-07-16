@@ -7,25 +7,25 @@
   <p-table
     #dt2
     class="prime-fixed-table"
-    dataKey="eventID"
-    editMode="row"
+    [dataKey]="rowKey"
+    [editMode]="row"
     [columns]="selectedColumns"
-    [value]="pokemonEvents"
+    [value]="data"
     [tableStyle]="{'table-layout': 'fixed', 'width': '100%'}"
     stripedRows
     [paginator]="true"
-    [rows]="25"
+    [rows]="numRowsToDisplay"
     [rowsPerPageOptions]="[25, 50, 100]"
-    [scrollable]="true"
-    scrollDirection="horizontal"
-    sortMode="multiple"
-    [resizableColumns]="true"
-    [rowHover]="true"
+    [scrollable]="isScrollable"
+    [scrollDirection]="scrollDirection"
+    [sortMode]="sortMode"
+    [resizableColumns]="areColumnsResizable"
+    [rowHover]="shouldShowRowHover"
   >
     <ng-template pTemplate="caption">
       <p-multiselect
         display="chip"
-        [options]="cols"
+        [options]="allColumns"
         [(ngModel)]="selectedColumns"
         optionLabel="header"
         selectedItemsLabel="{0} columns selected"
@@ -150,7 +150,7 @@
   </p-table>
 
   <p-dialog
-    header="Edit Pokemon Event"
+    [header]="dialogHeader"
     [modal]="true"
     [(visible)]="isEditDialogVisible"
     [style]="{ width: '25rem' }">
@@ -161,7 +161,7 @@
       </div>
     </ng-template>
 
-    <span class="text-surface-500 dark:text-surface-400 block mb-8">Update the event info</span>
+    <span class="text-surface-500 dark:text-surface-400 block mb-8">{{dialogEditHeader}}</span>
     @for (col of cols; track col.field) {
       @if (col.isEditable) {
         <div class="flex gap-3 mb-3">
@@ -202,7 +202,7 @@
 
     <ng-template #footer>
         <p-button label="Cancel" [text]="true" severity="secondary" (click)="isEditDialogVisible = false" />
-        <p-button label="Save" [outlined]="true" severity="secondary" (click)="savePokemonEventChange(selectedPokemonEvent)" />
+        <p-button label="Save" [outlined]="true" severity="secondary" (click)="saveRow(selectedPokemonEvent)" />
     </ng-template>
 
     </p-dialog>
