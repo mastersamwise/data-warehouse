@@ -107,6 +107,7 @@ export class CustomTable
     @Input() public allColumns: any[] = [];
     @Input() public selectedColumns: any[] = [];
     @Input() public numRowsToDisplay: number = 25;
+    @Input() public rowsPerPageOptions: number[] = [25, 50, 100];
     @Input() public isScrollable: string = "true";
     @Input() public scrollDirection: string = "horizontal";
     @Input() public sortMode: string = "multiple";
