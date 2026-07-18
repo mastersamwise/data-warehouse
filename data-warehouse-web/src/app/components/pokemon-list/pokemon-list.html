@@ -4,18 +4,24 @@
   [data]="pokemonEvents"
   rowKey="eventID"
   [allColumns]="cols"
-  [(selectedColumns)]="selectedColumns"
+  [ngModel]="selectedColumns"
+  (ngModelChange)="selectedColumnsChange()"
   addButtonLabel="Add Pokemon Event"
   [numRowsToDisplay]="25"
-  [rowsPerPageOtions]="[25, 50, 100]"
-  [isScrollable]="true"
-  [scrollDirection]="horizontal"
-  [sortMode]="multiple"
-  [areColumnsResizable]="true"
-  [shouldShowRowHover]="true"
+  rowsPerPageOtions="[25, 50, 100]"
+  isScrollable="true"
+  scrollDirection="horizontal"
+  sortMode="multiple"
+  areColumnsResizable="true"
   dialogHeader="Edit Pokemon Event"
   dialogEditHeader="Update the Pokemon Event"
   (rowAdded)="addRow()"
-  (rowSaved)="saveRow(pokemonEvent)"
+  (rowSaved)="saveRow(selectedPokemonEvent)"
   >
 </app-custom-table>
+
+<!--
+[shouldShowRowHover]="true"
+
+
+-->

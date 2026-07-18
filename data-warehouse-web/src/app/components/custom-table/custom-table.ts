@@ -91,34 +91,35 @@ export class CustomTable
     private datePipe = inject(DatePipe);
     private editingRowKeys: { [key: string]: boolean } = {};
 
-    public pokemonEvents!: PokemonEvent[];
-    public clonedPokemonEvents!: PokemonEvent[];
-    public selectedPokemonEvent: any = {};
-    //public selectedColumns: Column[] = pokemonColumns;
     public cols: Column[] = [... pokemonColumns];
+    public clonedData!: any[];
+    public selectedRowData: any = {};
+
     public isEditDialogVisible: boolean = false;
 
     public EDIT_WIDTH: string = '50px';
 
     @Input() public buttonAddLabel: string = "Add Item";
 
+    @Input() public data!: any[];
     @Input() public rowKey: string = "id";
-    @Input() public editMode: string = "row";
+    @Input() public editMode: 'cell' | 'row' = "row";
     @Input() public allColumns: any[] = [];
     @Input() public selectedColumns: any[] = [];
     @Input() public numRowsToDisplay: number = 25;
     @Input() public rowsPerPageOptions: number[] = [25, 50, 100];
     @Input() public isScrollable: string = "true";
     @Input() public scrollDirection: string = "horizontal";
-    @Input() public sortMode: string = "multiple";
+    @Input() public sortMode: 'single' | 'multiple' = "multiple";
     @Input() public areColumnsResizable: string = "true";
     @Input() public shouldShowRowHover: string = "true"
 
     @Input() public dialogHeader: string = "Edit Item";
     @Input() public dialogEditHeader: string = "Update the item info";
 
-    @Output() public rowAdded = new EventEmitter<void>(); 
-    @Output() public rowSaved = new EventEmitter<void>(); 
+    @Output() public rowAdded = new EventEmitter<void>();
+    @Output() public rowSaved = new EventEmitter<void>();
+    @Output() public selectedColumnsChange = new EventEmitter<void>();
 
     addRow(): void {
       new this.rowAdded().emit();
@@ -128,5 +129,33 @@ export class CustomTable
       this.rowSaved.emit();
     }
 
+    updateSelectedColumns(): void {
+      this.selectedColumnsChange.emit();
+    }
+
+    showEditDialog(rowData: any) {
+      this.selectedRowData = {... rowData};
+      this.isEditDialogVisible = true;
+    }
+
+    onRowEditInit(rowData: any) {
+      this.clonedData[rowData.eventID] = { ...rowData };
+    }
+
+    onRowEditSave(rowData: any) {
+      if (rowData.isNew) {
+        rowData.isNew = false;
+      }
+
+      const i = this.clonedData.findIndex(e => e.eventID == rowData.eventID);
+      delete this.clonedData[i];
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pokemon Event is updated' });
+    }
+
+    onRowEditCancel(pokemonEvent: PokemonEvent) {
+      const i = this.data.findIndex(e => e.eventID == pokemonEvent.eventID);
+      this.data[i] = pokemonEvent;
+      delete this.clonedData[pokemonEvent.eventID];
+    }
 
 }

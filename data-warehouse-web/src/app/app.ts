@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   selector: 'app-root',
   imports: [
     CommonModule,
-    // CustomTable,
+    CustomTable,
     NavBar,
     PokemonList,
     RouterOutlet,

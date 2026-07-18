@@ -29,6 +29,7 @@ import { AuditInfo } from '../../../classes/Common/AuditInfo';
 import { DatePipe } from '@angular/common';
 import { DatePicker } from "primeng/datepicker";
 import { MatNoDataRow } from "@angular/material/table";
+import { CustomTable } from '../custom-table/custom-table';
 
 export type ColumnType = 'text' | 'date' | 'textarea' | 'numeric';
 
@@ -57,6 +58,7 @@ const pokemonColumns: Column[] = [
   imports: [
     ButtonModule,
     ConfirmDialog,
+    CustomTable,
     DatePipe,
     Dialog,
     FormsModule,
@@ -205,6 +207,10 @@ export class PokemonList
       const i = this.pokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
       this.pokemonEvents[i] = pokemonEvent;
       this.isEditDialogVisible = false;
+    }
+
+    selectedColumnsChange() {
+      
     }
 
     private refreshData() {
