@@ -57,26 +57,19 @@ const pokemonColumns: Column[] = [
   templateUrl: './pokemon-list.html',
   imports: [
     ButtonModule,
-    ConfirmDialog,
     CustomTable,
-    DatePipe,
-    Dialog,
     FormsModule,
     IconFieldModule,
     InputIconModule,
-    InputNumber,
     InputTextModule,
     MultiSelectModule,
     RippleModule,
     SelectModule,
     TableModule,
-    Tag,
     TagModule,
     TextareaModule,
     ToastModule,
-    ToolbarModule,
-    DatePicker,
-    MatNoDataRow
+    ToolbarModule
 ],
   providers: [
     DatePipe,
@@ -210,7 +203,7 @@ export class PokemonList
     }
 
     selectedColumnsChange() {
-      
+
     }
 
     private refreshData() {

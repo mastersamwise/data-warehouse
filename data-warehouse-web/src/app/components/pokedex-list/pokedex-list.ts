@@ -56,7 +56,6 @@ const pokemonColumns: Column[] = [
   templateUrl: './pokedex-list.html',
   imports: [
     ButtonModule,
-    ConfirmDialog,
     DatePipe,
     Dialog,
     FormsModule,
@@ -68,13 +67,11 @@ const pokemonColumns: Column[] = [
     RippleModule,
     SelectModule,
     TableModule,
-    Tag,
     TagModule,
     TextareaModule,
     ToastModule,
     ToolbarModule,
-    DatePicker,
-    MatNoDataRow
+    DatePicker
 ],
   providers: [
     DatePipe,
