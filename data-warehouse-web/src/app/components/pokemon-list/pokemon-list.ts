@@ -79,134 +79,131 @@ const pokemonColumns: Column[] = [
   styleUrl: './pokemon-list.css'
 })
 export class PokemonList
- {
-    private pokemonService = inject(PokemonService);
-    private messageService = inject(MessageService);
-    private changeDetector = inject(ChangeDetectorRef);
-    private datePipe = inject(DatePipe);
-    private editingRowKeys: { [key: string]: boolean } = {};
+{
+  private pokemonService = inject(PokemonService);
+  private messageService = inject(MessageService);
+  private changeDetector = inject(ChangeDetectorRef);
+  private datePipe = inject(DatePipe);
+  private editingRowKeys: { [key: string]: boolean } = {};
 
-    public pokemonEvents!: PokemonEvent[];
-    public clonedPokemonEvents!: PokemonEvent[];
-    public selectedPokemonEvent: any = {};
-    public selectedColumns: Column[] = pokemonColumns;
-    public cols: Column[] = [... pokemonColumns];
-    public isEditDialogVisible: boolean = false;
+  public pokemonEvents!: PokemonEvent[];
+  public clonedPokemonEvents!: PokemonEvent[];
+  public selectedPokemonEvent: any = {};
+  public selectedColumns: Column[] = pokemonColumns;
+  public cols: Column[] = [... pokemonColumns];
+  public isEditDialogVisible: boolean = false;
 
-    public EDIT_WIDTH: string = '50px';
+  public EDIT_WIDTH: string = '50px';
 
-    ngOnInit() {
-      this.loadEvents();
+  ngOnInit() {
+    this.loadEvents();
+  }
+
+  loadEvents() {
+      this.pokemonService.getPokemonEvents().subscribe({
+        next: (data: PokemonEvent[]) => {
+          this.pokemonEvents = data;
+          this.clonedPokemonEvents = [... data];
+          this.changeDetector.markForCheck();
+          console.log('Events loaded successfully: ', this.pokemonEvents);
+        },
+        error: (error: any) => {
+          console.error('There was an error loading the events:', error);
+        }}
+      );
+
+  }
+
+  clearTable(pokemonEvents: PokemonEvent[]) {
+    pokemonEvents = [];
+  }
+
+  onRowEditInit(pokemonEvent: PokemonEvent) {
+      this.clonedPokemonEvents[pokemonEvent.eventID] = { ...pokemonEvent };
+  }
+
+  onRowEditSave(pokemonEvent: PokemonEvent) {
+    if (pokemonEvent.isNew) {
+      pokemonEvent.isNew = false;
     }
 
-    loadEvents() {
-        this.pokemonService.getPokemonEvents().subscribe({
-          next: (data: PokemonEvent[]) => {
-            this.pokemonEvents = data;
-            this.clonedPokemonEvents = [... data];
-            this.changeDetector.markForCheck();
-            console.log('Events loaded successfully: ', this.pokemonEvents);
-          },
-          error: (error: any) => {
-            console.error('There was an error loading the events:', error);
-          }}
-        );
+    const i = this.clonedPokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
+    delete this.clonedPokemonEvents[i];
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pokemon Event is updated' });
+  }
 
-    }
-
-    clearTable(pokemonEvents: PokemonEvent[]) {
-      pokemonEvents = [];
-    }
-
-    onRowEditInit(pokemonEvent: PokemonEvent) {
-        this.clonedPokemonEvents[pokemonEvent.eventID] = { ...pokemonEvent };
-    }
-
-    onRowEditSave(pokemonEvent: PokemonEvent) {
-       if (pokemonEvent.isNew) {
-        pokemonEvent.isNew = false;
-      }
-        //if (pokemonEvent.price > 0) {
-            const i = this.clonedPokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
-            delete this.clonedPokemonEvents[i];
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pokemon Event is updated' });
-        //} else {
-            // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
-        //}
-    }
-
-    onRowEditCancel(pokemonEvent: PokemonEvent) {
-        const i = this.pokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
-        this.pokemonEvents[i] = pokemonEvent;
-        delete this.clonedPokemonEvents[pokemonEvent.eventID];
-    }
-
-    addRow() {
-      const lastIndex = this.pokemonEvents.length - 1;
-      const newRow: PokemonEvent = {
-        eventID: this.pokemonEvents[lastIndex].eventID + 1,
-        eventName: '',
-        isEventActive: true,
-        startDate: new Date(),
-        endDate: new Date(),
-        description: '',
-        eventType: '',
-        serialCode: '',
-        teraType: '',
-        auditInfo: new AuditInfo(new Date(), '', new Date(), '', false),
-        isNew: true
-      };
-
-      this.pokemonEvents = [newRow, ...this.pokemonEvents];
-
-      this.editingRowKeys[newRow.eventID!] = true;
-    }
-
-    saveRow(pokemonEvent: PokemonEvent) {
-      if (pokemonEvent.isNew) {
-        pokemonEvent.isNew = false;
-      }
-      this.onRowEditSave(pokemonEvent);
-    }
-
-    cancelRow(pokemonEvent: PokemonEvent, index: number) {
-      if (pokemonEvent.isNew) {
-        this.pokemonEvents.splice(index, 1);
-        this.pokemonEvents = [...this.pokemonEvents];
-      }
-    }
-
-    updatePokemonEvent(pokemonEvent: PokemonEvent) {
-      this.pokemonService.updatePokemonEvent(pokemonEvent).subscribe({
-          next: (data: PokemonEvent[]) => {
-            //this.pokemonEvents.find(e => e.eventID == pokemonEvent.eventID) = data;
-            //this.clonedPokemonEvents = [... data];
-            //this.changeDetector.markForCheck();
-            console.log(`EventID: ${pokemonEvent.eventID} loaded successfully: `, this.pokemonEvents);
-            this.refreshData();
-          },
-          error: (error: any) => {
-            console.error(`There was an error updating eventID: ${pokemonEvent.eventID}`, error);
-          }}
-        );
-    }
-
-    showEditDialog(pokemonEvent: any) {
-      this.selectedPokemonEvent = {... pokemonEvent};
-      this.isEditDialogVisible = true;
-    }
-
-    savePokemonEventChange(pokemonEvent: PokemonEvent) {
+  onRowEditCancel(pokemonEvent: PokemonEvent) {
       const i = this.pokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
       this.pokemonEvents[i] = pokemonEvent;
-      this.isEditDialogVisible = false;
-    }
+      delete this.clonedPokemonEvents[pokemonEvent.eventID];
+  }
 
-    selectedColumnsChange() {
+  onAddRowEvent() {
+    const lastIndex = this.pokemonEvents.length - 1;
+    const newRow: PokemonEvent = {
+      eventID: this.pokemonEvents[lastIndex].eventID + 1,
+      eventName: '',
+      isEventActive: true,
+      startDate: new Date(),
+      endDate: new Date(),
+      description: '',
+      eventType: '',
+      serialCode: '',
+      teraType: '',
+      auditInfo: new AuditInfo(new Date(), '', new Date(), '', false),
+      isNew: true
+    };
 
-    }
+    this.pokemonEvents = [newRow, ...this.pokemonEvents];
 
-    private refreshData() {
-      this.loadEvents();
+    this.editingRowKeys[newRow.eventID!] = true;
+  }
+
+  onSaveRowEvent(pokemonEvent: PokemonEvent) {
+    if (pokemonEvent.isNew) {
+      pokemonEvent.isNew = false;
     }
+    this.onRowEditSave(pokemonEvent);
+  }
+
+  cancelRow(pokemonEvent: PokemonEvent, index: number) {
+    if (pokemonEvent.isNew) {
+      this.pokemonEvents.splice(index, 1);
+      this.pokemonEvents = [...this.pokemonEvents];
+    }
+  }
+
+  updatePokemonEvent(pokemonEvent: PokemonEvent) {
+    this.pokemonService.updatePokemonEvent(pokemonEvent).subscribe({
+        next: (data: PokemonEvent[]) => {
+          //this.pokemonEvents.find(e => e.eventID == pokemonEvent.eventID) = data;
+          //this.clonedPokemonEvents = [... data];
+          //this.changeDetector.markForCheck();
+          console.log(`EventID: ${pokemonEvent.eventID} loaded successfully: `, this.pokemonEvents);
+          this.refreshData();
+        },
+        error: (error: any) => {
+          console.error(`There was an error updating eventID: ${pokemonEvent.eventID}`, error);
+        }}
+      );
+  }
+
+  showEditDialog(pokemonEvent: any) {
+    this.selectedPokemonEvent = {... pokemonEvent};
+    this.isEditDialogVisible = true;
+  }
+
+  savePokemonEventChange(pokemonEvent: PokemonEvent) {
+    const i = this.pokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
+    this.pokemonEvents[i] = pokemonEvent;
+    this.isEditDialogVisible = false;
+  }
+
+  selectedColumnsChange() {
+
+  }
+
+  private refreshData() {
+    this.loadEvents();
+  }
 }

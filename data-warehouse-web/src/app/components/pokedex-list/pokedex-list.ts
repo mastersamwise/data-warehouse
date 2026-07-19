@@ -125,16 +125,13 @@ export class PokemonList
     }
 
     onRowEditSave(pokemonEvent: PokemonEvent) {
-       if (pokemonEvent.isNew) {
+      if (pokemonEvent.isNew) {
         pokemonEvent.isNew = false;
       }
-        //if (pokemonEvent.price > 0) {
-            const i = this.clonedPokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
-            delete this.clonedPokemonEvents[i];
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pokemon Event is updated' });
-        //} else {
-            // this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
-        //}
+
+      const i = this.clonedPokemonEvents.findIndex(e => e.eventID == pokemonEvent.eventID);
+      delete this.clonedPokemonEvents[i];
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Pokemon Event is updated' });
     }
 
     onRowEditCancel(pokemonEvent: PokemonEvent) {

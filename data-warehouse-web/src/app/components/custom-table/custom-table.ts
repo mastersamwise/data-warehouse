@@ -119,7 +119,7 @@ export class CustomTable
     @Output() public selectedColumnsChange = new EventEmitter<void>();
 
     addRow(): void {
-      new this.rowAdded().emit();
+      this.rowAdded.emit();
     }
 
     saveRow(): void {

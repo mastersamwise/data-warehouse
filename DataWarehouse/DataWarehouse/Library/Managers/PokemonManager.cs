@@ -440,8 +440,8 @@ namespace DataWarehouse.Library.Managers
                 string query = @"
                     UPDATE pokemon_events
                     SET 
-                        udpated_date    = @updatedDate,
-                        udpated_by      = @updatedBy,
+                        updated_date    = @updatedDate,
+                        updated_by      = @updatedBy,
                         is_deleted      = @isDeleted
                     WHERE event_id = @eventID;";
 
